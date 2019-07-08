@@ -1,0 +1,31 @@
+<h1>View Task</h1>
+<%= link_to 'Back to Task List', tasks_path %>
+
+<table>
+  <thead>
+    <th>Title</th>
+    <th>Start Time</th>
+    <th>End Time</th>
+    <th>Status</th>
+    <th>Description</th>
+    <th>Edit</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @task.title %> (Priority: <%= @task.priority if @task.priority %>)</td>
+      <td><%= @task.status if @task.status %></td>
+      <td><%= @task.start_time if @task.start_time %></td>
+      <td><%= @task.end_time if @task.end_time %></td>
+      <td><%= @task.description %></td>
+      <td>
+        <%= link_to 'Edit', edit_task_path(id: @task.id) %>
+        <%= 
+          link_to 'Delete', 
+          task_path(id: @task.id), 
+          method: 'delete', 
+          data: {confirm: 'Are you sure?' } 
+        %>
+      </td>
+    </tr>
+  </tbody>
+</table>
