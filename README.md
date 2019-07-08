@@ -53,3 +53,6 @@ A Rails app for task management
 ## Getting Started (WIP)
 - 以 `rails db:create` 建立資料庫
 - 以 `rails db` 確認有正確連接資料庫
+
+## Running the Automated Test Suite
+- `$ bundle exec guard`
