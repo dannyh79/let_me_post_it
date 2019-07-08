@@ -1,28 +1,28 @@
-<h1><%= I18n.t("tasks.heading.index") %></h1>
-<%= link_to "#{I18n.t("tasks.table.create_a_new_task")}", new_task_path %>
+<h1>Task List</h1>
+<%= link_to 'Create a New Task', new_task_path %>
 <table>
   <thead>
-    <th><%= I18n.t("tasks.table.title") %></th>
-    <th><%= I18n.t("tasks.table.start_time") %></th>
-    <th><%= I18n.t("tasks.table.end_time") %></th>
-    <th><%= I18n.t("tasks.table.status") %></th>
-    <th><%= I18n.t("tasks.table.description") %></th>
-    <th><%= I18n.t("tasks.table.edit") %></th>
+    <th>Title</th>
+    <th>Start Time</th>
+    <th>End Time</th>
+    <th>Status</th>
+    <th>Description</th>
+    <th>Edit</th>
   </thead>
   <tbody>
     <% @tasks.each do |task| %>      
       <tr>
-        <td><%= task.title %> (<%= I18n.t("tasks.table.priority") %> <%= task.priority if task.priority %>)</td>
+        <td><%= task.title %> (Priority: <%= task.priority if task.priority %>)</td>
         <td><%= task.status if task.status %></td>
         <td><%= task.start_time if task.start_time %></td>
         <td><%= task.end_time if task.end_time %></td>
         <td>
           <span class="ellipsis"><%= task.description %></span>
-          <%= link_to "#{I18n.t("tasks.table.view")}", task_path(task.id) %>
+          <%= link_to '(View)', task_path(task.id) %>
         </td>
         <td>
-          <%= link_to "#{I18n.t("tasks.table.edit")}", edit_task_path(id: task.id) %>
-          <%= delete_link_to "#{I18n.t("tasks.table.delete")}", task_path(id: task.id) %>
+          <%= link_to 'Edit', edit_task_path(id: task.id) %>
+          <%= delete_link_to 'Delete', task_path(id: task.id) %>
         </td>
       </tr>
     <% end %>

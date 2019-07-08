@@ -28,18 +28,18 @@ RSpec.describe Task, type: :feature do
 
     it 'without input' do
       create_task_with(nil, nil)
-      expect(page).to have_content('Title CAN NOT BE BLANK!')
-      expect(page).to have_content('Description CAN NOT BE BLANK!')
+      expect(page).to have_content('Title can\'t be blank')
+      expect(page).to have_content('Description can\'t be blank')
     end
     
     it 'without title' do
       create_task_with(nil, description)
-      expect(page).to have_content('Title CAN NOT BE BLANK!')
+      expect(page).to have_content('Title can\'t be blank')
     end
 
     it 'without description' do
       create_task_with(title, nil)
-      expect(page).to have_content('Description CAN NOT BE BLANK!')
+      expect(page).to have_content('Description can\'t be blank')
     end
   end
 
@@ -72,8 +72,8 @@ RSpec.describe Task, type: :feature do
       visit the_edit_task_path(title)
       edit_task_with()
       
-      expect(page).to have_content('Title CAN NOT BE BLANK!')
-      expect(page).to have_content('Description CAN NOT BE BLANK!')
+      expect(page).to have_content('Title can\'t be blank')
+      expect(page).to have_content('Description can\'t be blank')
     end
 
     it 'without title' do
@@ -81,14 +81,14 @@ RSpec.describe Task, type: :feature do
       visit the_edit_task_path(title)
       edit_task_with(nil, new_description)
       
-      expect(page).to have_content('Title CAN NOT BE BLANK!')
+      expect(page).to have_content('Title can\'t be blank')
     end
     
     it 'without description' do
       create_task_with(title, description)
       visit the_edit_task_path(title)
       edit_task_with(new_title)
-      expect(page).to have_content('Description CAN NOT BE BLANK!')
+      expect(page).to have_content('Description can\'t be blank')
     end
   end
 
