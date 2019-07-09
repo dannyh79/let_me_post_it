@@ -12,8 +12,8 @@ module LetMePostIt
     config.load_defaults 5.2
 
     # config for i18n
-    # config.i18n.default_locale = "zh-TW"
-    config.i18n.default_locale = "en"
+    config.i18n.default_locale = "zh-TW"
+    # config.i18n.default_locale = "en"
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
 
     # config for time zone
