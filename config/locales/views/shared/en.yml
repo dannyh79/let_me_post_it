@@ -5,4 +5,4 @@ en:
     submit:
       task:
         create: "Create %{model}"
-        edit: "Update %{model}"
+        update: "Update %{model}"
