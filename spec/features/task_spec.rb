@@ -126,6 +126,63 @@ RSpec.describe Task, type: :feature do
     end
   end
 
+  describe 'sorting' do
+    it 'by "created_at" ASC' do
+      tasks = []
+      3.times do |index|
+        task = create(:task, title: "#{index} #{title}")
+        tasks << task
+      end
+
+      visit tasks_path
+
+      within('table#table_tasks') do
+        expect(page).to have_content(
+          /#{tasks[0][:title]}+#{tasks[1][:title]}+#{tasks[2][:title]}/
+        )
+      end
+      within('form.form_sort') do
+        select "#{I18n.t("tasks.form_select.asc")}", from: 'created_at'
+        click_on "#{I18n.t("tasks.form_select.submit")}"
+      end
+      within('table#table_tasks') do
+        expect(page).to have_content(
+          /#{tasks[0][:title]}+#{tasks[1][:title]}+#{tasks[2][:title]}/
+        )
+      end
+
+      # save_and_open_page
+    end
+
+    it 'by "created_at" DESC' do
+      tasks = []
+      3.times do |index|
+        task = create(:task, title: "#{index} #{title}")
+        tasks << task
+      end
+      
+      visit tasks_path
+
+      within('table#table_tasks') do
+        expect(page).to have_content(
+          /#{tasks[0][:title]}+#{tasks[1][:title]}+#{tasks[2][:title]}/
+        )
+      end
+      within('form.form_sort') do
+        select "#{I18n.t("tasks.form_select.desc")}", from: 'created_at'
+        click_on "#{I18n.t("tasks.form_select.submit")}"
+      end
+      within('table#table_tasks') do
+        expect(page).to have_content(
+          /#{tasks[2][:title]}+#{tasks[1][:title]}+#{tasks[0][:title]}/
+        )
+      end
+
+      # save_and_open_page
+    end
+  end
+
+
   private
 
   def create_task_with(title, description)
