@@ -24,8 +24,8 @@ en:
       status: 'Status:'
       description: 'Description:'
       placeholder:
-        title: "e.g. \"Sweep the floor\""
-        description: "e.g. \"Also take garbage out to the bin\""
+        title: 'e.g. "Sweep the floor"'
+        description: 'e.g. "Also take garbage out to the bin"'
       submit: 'Create Task'
     form_select:
       attributes:

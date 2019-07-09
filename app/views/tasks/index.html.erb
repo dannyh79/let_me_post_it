@@ -26,8 +26,8 @@
     <% @tasks.each do |task| %>      
       <tr>
         <td><%= task.title %></td>
-        <td><%= task.start_time if task.start_time %></td>
-        <td><%= task.end_time if task.end_time %></td>
+        <td><%= I18n.l(task.start_time, format: :long) if task.start_time %></td>
+        <td><%= I18n.l(task.end_time, format: :long) if task.end_time %></td>
         <td><%= task.priority if task.priority %></td>
         <td><%= task.status if task.status %></td>
         <td>
