@@ -23,6 +23,16 @@
   </div>
 
   <div>
+    <%= form.label :status, "#{I18n.t("tasks.form.status")}" %>
+    <%= form.select :status, options_for_select([
+                                                  [I18n.t("activerecord.attributes.task/status.pending"), "pending"],
+                                                  [I18n.t("activerecord.attributes.task/status.ongoing"), "ongoing"],
+                                                  [I18n.t("activerecord.attributes.task/status.done"), "done"]
+                                                ]) 
+    %>
+  </div>
+
+  <div>
     <%= form.label :description, "#{I18n.t("tasks.form.description")}" %>
     <%= form.text_area :description, placeholder: "#{I18n.t("tasks.form.placeholder.description")}" %>
   </div>

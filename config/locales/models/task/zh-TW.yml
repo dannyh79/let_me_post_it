@@ -8,6 +8,10 @@ zh-TW:
         description: '任務描述'
         start_time: '任務開始時間'
         end_time: '任務結束時間'
+      task/status:
+          pending: '待處理'
+          ongoing: '進行中'
+          done: '完成'
     errors:
       models:
         task:

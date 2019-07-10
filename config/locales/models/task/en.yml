@@ -8,6 +8,10 @@ en:
         description: 'Description'
         start_time: '任務開始時間'
         end_time: '任務結束時間'
+      task/status:
+        pending: 'pending'
+        ongoing: 'ongoing'
+        done: 'done'
     errors:
       models:
         task:
