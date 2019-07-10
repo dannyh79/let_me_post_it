@@ -5,6 +5,12 @@ class Task < ApplicationRecord
   scope :created_at_desc, -> { order(created_at: :desc) }
   scope :end_time_asc, -> { order(end_time: :asc) }
   scope :end_time_desc, -> { order(end_time: :desc) }
+  scope :pending, -> { where(status: :pending) }
+  scope :ongoing, -> { where(status: :ongoing) }
+  scope :done, -> { where(status: :done) }
+  scope :by_title, -> (title) { where('title ILIKE ?', "%#{title}%") }
+  scope :by_status, -> (status) { where(status: status.to_sym) }
+  scope :by_title_and_status, -> (title, status) { where('title ILIKE ?', "%#{title}%").where(status: status.to_sym) }
   
   validates :title, :description, presence: true
   validate :end_time_after_start_time

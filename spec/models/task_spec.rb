@@ -7,14 +7,14 @@ RSpec.describe Task, type: :model do
     it 'should always be after end time' do
       task_with_valid_input = Task.new(
                                 title: Faker::Lorem.sentence,
-                                start_time: Time.now - 1, 
+                                start_time: Time.now - 1.day, 
                                 end_time: Time.now,
                                 description: Faker::Lorem.paragraph
                               )
       task_with_invalid_input = Task.new(
                                   title: Faker::Lorem.sentence,
                                   start_time: Time.now, 
-                                  end_time: Time.now - 1,
+                                  end_time: Time.now - 1.day,
                                   description: Faker::Lorem.paragraph
                                 )
 

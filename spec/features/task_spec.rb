@@ -151,7 +151,7 @@ RSpec.describe Task, type: :feature do
   describe 'sorting' do
     it 'by "created_at" ASC' do
       tasks = []
-      3.times do |index|
+      5.times do |index|
         task = create(:task, title: "#{index} #{title}")
         tasks << task
       end
@@ -160,7 +160,7 @@ RSpec.describe Task, type: :feature do
 
       within('table#table_tasks') do
         expect(page).to have_content(
-          /#{tasks[0][:title]}+#{tasks[1][:title]}+#{tasks[2][:title]}/
+          /#{tasks[0][:title]}+#{tasks[1][:title]}+#{tasks[2][:title]}+#{tasks[3][:title]}+#{tasks[4][:title]}+/
         )
       end
       within('form.form_sort') do
@@ -169,7 +169,7 @@ RSpec.describe Task, type: :feature do
       end
       within('table#table_tasks') do
         expect(page).to have_content(
-          /#{tasks[0][:title]}+#{tasks[1][:title]}+#{tasks[2][:title]}/
+          /#{tasks[0][:title]}+#{tasks[1][:title]}+#{tasks[2][:title]}+#{tasks[3][:title]}+#{tasks[4][:title]}+/
         )
       end
 
@@ -178,7 +178,7 @@ RSpec.describe Task, type: :feature do
 
     it 'by "created_at" DESC' do
       tasks = []
-      3.times do |index|
+      5.times do |index|
         task = create(:task, title: "#{index} #{title}")
         tasks << task
       end
@@ -187,7 +187,7 @@ RSpec.describe Task, type: :feature do
 
       within('table#table_tasks') do
         expect(page).to have_content(
-          /#{tasks[0][:title]}+#{tasks[1][:title]}+#{tasks[2][:title]}/
+          /#{tasks[0][:title]}+#{tasks[1][:title]}+#{tasks[2][:title]}+#{tasks[3][:title]}+#{tasks[4][:title]}+/
         )
       end
       within('form.form_sort') do
@@ -196,7 +196,7 @@ RSpec.describe Task, type: :feature do
       end
       within('table#table_tasks') do
         expect(page).to have_content(
-          /#{tasks[2][:title]}+#{tasks[1][:title]}+#{tasks[0][:title]}/
+          /#{tasks[4][:title]}+#{tasks[3][:title]}+#{tasks[2][:title]}+#{tasks[1][:title]}+#{tasks[0][:title]}+/
         )
       end
 
@@ -205,14 +205,14 @@ RSpec.describe Task, type: :feature do
 
     it 'by "end_time" ASC' do
       task_with_mid_end_time = create(:task, end_time: Time.now)
-      task_with_late_end_time = create(:task, end_time: Time.now + 1)
-      task_with_early_end_time = create(:task, end_time: Time.now - 1)
+      task_with_late_end_time = create(:task, end_time: Time.now + 1.day)
+      task_with_early_end_time = create(:task, end_time: Time.now - 1.day)
 
       visit tasks_path
 
       within('table#table_tasks') do
         expect(page).to have_content(
-          /.*\b#{I18n.l(task_with_mid_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_late_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_early_end_time.end_time, format: :long)}\b+.*/i
+          /.*\b#{I18n.l(task_with_mid_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_late_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_early_end_time.end_time, format: :long)}\b+.*/
         )
       end
       within('form.form_sort') do
@@ -221,7 +221,7 @@ RSpec.describe Task, type: :feature do
       end
       within('table#table_tasks') do
         expect(page).to have_content(
-          /.*\b#{I18n.l(task_with_early_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_mid_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_late_end_time.end_time, format: :long)}\b+.*/i
+          /.*\b#{I18n.l(task_with_early_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_mid_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_late_end_time.end_time, format: :long)}\b+.*/
         )
       end
 
@@ -230,23 +230,23 @@ RSpec.describe Task, type: :feature do
 
     it 'by "end_time" DESC' do
       task_with_mid_end_time = create(:task, end_time: Time.now)
-      task_with_early_end_time = create(:task, end_time: Time.now - 1)
-      task_with_late_end_time = create(:task, end_time: Time.now + 1)
+      task_with_early_end_time = create(:task, end_time: Time.now - 1.day)
+      task_with_late_end_time = create(:task, end_time: Time.now + 1.day)
 
       visit tasks_path
 
       within('table#table_tasks') do
         expect(page).to have_content(
-          /.*\b#{I18n.l(task_with_mid_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_late_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_early_end_time.end_time, format: :long)}\b+.*/i
+          /.*\b#{I18n.l(task_with_mid_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_early_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_late_end_time.end_time, format: :long)}\b+.*/
         )
       end
       within('form.form_sort') do
-        select "#{I18n.t("tasks.form_select.asc")}", from: 'end_time'
+        select "#{I18n.t("tasks.form_select.desc")}", from: 'end_time'
         click_on "#{I18n.t("tasks.form_select.submit")}"
       end
       within('table#table_tasks') do
         expect(page).to have_content(
-          /.*\b#{I18n.l(task_with_late_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_mid_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_early_end_time.end_time, format: :long)}\b+.*/i
+          /.*\b#{I18n.l(task_with_late_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_mid_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_early_end_time.end_time, format: :long)}\b+.*/
         )
       end
 
