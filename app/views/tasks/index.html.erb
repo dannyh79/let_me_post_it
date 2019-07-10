@@ -14,22 +14,24 @@
 
 <table id="table_tasks">
   <thead>
-    <th><%= I18n.t("tasks.table.title") %></th>
-    <th><%= I18n.t("tasks.table.start_time") %></th>
-    <th><%= I18n.t("tasks.table.end_time") %></th>
-    <th><%= I18n.t("tasks.table.priority") %></th>
-    <th><%= I18n.t("tasks.table.status") %></th>
-    <th><%= I18n.t("tasks.table.description") %></th>
-    <th><%= I18n.t("tasks.table.edit") %></th>
+    <tr>
+      <th><%= I18n.t("tasks.table.title") %></th>
+      <th><%= I18n.t("tasks.table.start_time") %></th>
+      <th><%= I18n.t("tasks.table.end_time") %></th>
+      <th><%= I18n.t("tasks.table.priority") %></th>
+      <th><%= I18n.t("tasks.table.status") %></th>
+      <th><%= I18n.t("tasks.table.description") %></th>
+      <th><%= I18n.t("tasks.table.edit") %></th>
+    </tr>
   </thead>
   <tbody>
     <% @tasks.each do |task| %>      
       <tr>
         <td><%= task.title %></td>
-        <td><%= I18n.l(task.start_time, format: :long) if task.start_time %></td>
-        <td><%= I18n.l(task.end_time, format: :long) if task.end_time %></td>
-        <td><%= task.priority if task.priority %></td>
-        <td><%= task.status if task.status %></td>
+        <td><%= I18n.l(task.start_time, format: :long) %></td>
+        <td><%= I18n.l(task.end_time, format: :long) %></td>
+        <td><%= task.priority %></td>
+        <td><%= task.status %></td>
         <td>
           <span class="ellipsis"><%= task.description %></span>
           <%= link_to "#{I18n.t("tasks.table.view")}", task_path(task.id) %>
