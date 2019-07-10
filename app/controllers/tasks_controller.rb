@@ -2,14 +2,25 @@ class TasksController < ApplicationController
   before_action :find_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:created_at] != nil
+    case 
+    when params[:created_at] != ""
       case params[:created_at]
       when "asc"
         @tasks = Task.created_at_asc
       when "desc"
         @tasks = Task.created_at_desc
+      end      
+    when params[:end_time] != ""
+      case params[:end_time]
+      when "asc"
+        @tasks = Task.end_time_asc
+      when "desc"
+        @tasks = Task.end_time_desc
       end
-    else
+    end
+
+    # When none of the sort methods is chosen 
+    if @tasks.nil?
       @tasks = Task.all
     end
 

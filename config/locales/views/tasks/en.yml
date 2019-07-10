@@ -30,6 +30,7 @@ en:
     form_select:
       attributes:
         created_at: 'By time created: '
+        end_time: 'By end time: '
       asc: 'Ascending'
       desc: 'Descending'
       submit: 'Submit'
