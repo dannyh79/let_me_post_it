@@ -202,6 +202,58 @@ RSpec.describe Task, type: :feature do
 
       # save_and_open_page
     end
+
+    it 'by "end_time" ASC' do
+      task_with_mid_end_time = create(:task, end_time: Time.now)
+      task_with_late_end_time = create(:task, end_time: Time.now + 1)
+      task_with_early_end_time = create(:task, end_time: Time.now - 1)
+
+      visit tasks_path
+
+      within('table#table_tasks') do
+        expect(page).to have_content(
+          /.*\b#{I18n.l(task_with_mid_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_late_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_early_end_time.end_time, format: :long)}\b+.*/i
+        )
+      end
+      within('form.form_sort') do
+        select "#{I18n.t("tasks.form_select.asc")}", from: 'end_time'
+        click_on "#{I18n.t("tasks.form_select.submit")}"
+      end
+      within('table#table_tasks') do
+        expect(page).to have_content(
+          /.*\b#{I18n.l(task_with_early_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_mid_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_late_end_time.end_time, format: :long)}\b+.*/i
+        )
+      end
+
+      # save_and_open_page
+    end
+
+    it 'by "end_time" DESC' do
+      task_with_mid_end_time = create(:task, end_time: Time.now)
+      task_with_early_end_time = create(:task, end_time: Time.now - 1)
+      task_with_late_end_time = create(:task, end_time: Time.now + 1)
+
+      visit tasks_path
+
+      within('table#table_tasks') do
+        expect(page).to have_content(
+          /.*\b#{I18n.l(task_with_mid_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_late_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_early_end_time.end_time, format: :long)}\b+.*/i
+        )
+      end
+      within('form.form_sort') do
+        select "#{I18n.t("tasks.form_select.asc")}", from: 'end_time'
+        click_on "#{I18n.t("tasks.form_select.submit")}"
+      end
+      within('table#table_tasks') do
+        expect(page).to have_content(
+          /.*\b#{I18n.l(task_with_late_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_mid_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_early_end_time.end_time, format: :long)}\b+.*/i
+        )
+      end
+
+      # save_and_open_page
+    end
+
+
   end
 
 

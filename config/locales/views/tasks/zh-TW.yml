@@ -30,6 +30,7 @@ zh-TW:
     form_select:
       attributes:
         created_at: '依建立時間：'
+        end_time: '依結束時間：'
       asc: '升冪'
       desc: '降冪'
       submit: '送出'
