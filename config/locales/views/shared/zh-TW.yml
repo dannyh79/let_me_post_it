@@ -1,5 +1,12 @@
 zh-TW:
   site_title: '讓我貼貼看：簡易任務管理系統'
+  views:
+    pagination:
+      first: '第一頁'
+      last: '最後一頁'
+      previous: '上一頁'
+      next: '下一頁'
+      truncate: '...'
   are_you_sure: '你確定嗎？'
   helpers:
     submit:
