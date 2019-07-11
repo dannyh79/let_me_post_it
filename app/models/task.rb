@@ -12,7 +12,7 @@ class Task < ApplicationRecord
   scope :by_status, -> (status) { where(status: status.to_sym) }
   scope :by_title_and_status, -> (title, status) { where('title ILIKE ?', "%#{title}%").where(status: status) }
   
-  validates :title, :description, presence: true
+  validates :title, :description, :status, presence: true
   validate :end_time_after_start_time
 
   private

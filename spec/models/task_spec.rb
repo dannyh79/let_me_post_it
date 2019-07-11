@@ -4,6 +4,7 @@ RSpec.describe Task, type: :model do
   describe "data input" do
     it { should validate_presence_of(:title) }
     it { should validate_presence_of(:description) }
+    it { should validate_presence_of(:status) }
     it 'should always be after end time' do
       task_with_valid_input = Task.new(
                                 title: Faker::Lorem.sentence,
