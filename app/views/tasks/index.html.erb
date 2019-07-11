@@ -1,12 +1,12 @@
 <h1><%= I18n.t("tasks.heading.index") %></h1>
-<%= link_to "#{I18n.t("tasks.table.create_a_new_task")}", new_task_path %>
+<%= link_to I18n.t("tasks.table.create_a_new_task"), new_task_path %>
 
 <div>
-  <%= label_tag :search_field, "#{I18n.t("tasks.search_field.label")}" %>
+  <%= label_tag :search_field, I18n.t("tasks.search_field.label") %>
   <%= form_tag(tasks_path, method: 'get') do %>
-      <%= label_tag :title, "#{I18n.t("tasks.search_field.attributes.title.label")}" %>
-      <%= text_field_tag :title, nil, placeholder: "#{I18n.t("tasks.search_field.attributes.title.placeholder")}" %>
-      <%= label_tag :status, "#{I18n.t("tasks.search_field.attributes.status.label")}" %>
+      <%= label_tag :title, I18n.t("tasks.search_field.attributes.title.label") %>
+      <%= text_field_tag :title, nil, placeholder: I18n.t("tasks.search_field.attributes.title.placeholder") %>
+      <%= label_tag :status, I18n.t("tasks.search_field.attributes.status.label") %>
       <%= select_tag :status, 
           options_for_select([
                               [I18n.t("activerecord.attributes.task/status.pending"), "pending"],
@@ -15,12 +15,12 @@
                             ]),
           include_blank: true
       %>
-    <%= submit_tag "#{I18n.t("tasks.search_field.submit")}" %>
+    <%= submit_tag I18n.t("tasks.search_field.submit") %>
   <% end %>
 </div>
 
 <div>
-  <%= label :form_sort, "#{I18n.t("tasks.form_select.label")}" %>
+  <%= label :form_sort, I18n.t("tasks.form_select.label") %>
   <%= form_tag({ controller: "tasks", action: "index" }, 
                 method: "get", 
                 id: 'form_sort', 
@@ -40,7 +40,7 @@
       <option value="desc"><%= I18n.t("tasks.form_select.desc") %></option>
     </select>
 
-    <%= submit_tag "#{I18n.t("tasks.form_select.submit")}"%>
+    <%= submit_tag I18n.t("tasks.form_select.submit")%>
   <% end %>
 </div>
 
@@ -66,11 +66,11 @@
         <td><%= I18n.t("activerecord.attributes.task/status.#{task.status}") if task.status %></td>
         <td>
           <span class="ellipsis"><%= task.description %></span>
-          <%= link_to "#{I18n.t("tasks.table.view")}", task_path(task.id) %>
+          <%= link_to I18n.t("tasks.table.view"), task_path(task.id) %>
         </td>
         <td>
-          <%= link_to "#{I18n.t("tasks.table.edit")}", edit_task_path(id: task.id) %>
-          <%= delete_link_to "#{I18n.t("tasks.table.delete")}", task_path(id: task.id) %>
+          <%= link_to I18n.t("tasks.table.edit"), edit_task_path(id: task.id) %>
+          <%= delete_link_to I18n.t("tasks.table.delete"), task_path(id: task.id) %>
         </td>
       </tr>
     <% end %>

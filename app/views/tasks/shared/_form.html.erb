@@ -8,22 +8,22 @@
 
 <%= form_for(task, html: { class: 'form_task' }) do |form| %>
   <div>
-    <%= form.label :title, "#{I18n.t("tasks.form.title")}" %>
-    <%= form.text_field :title, placeholder: "#{I18n.t("tasks.form.placeholder.title")}" %>
+    <%= form.label :title, I18n.t("tasks.form.title") %>
+    <%= form.text_field :title, placeholder: I18n.t("tasks.form.placeholder.title") %>
   </div>
   
   <div>
-    <%= form.label :start_time, "#{I18n.t("tasks.form.start_time")}" %>
+    <%= form.label :start_time, I18n.t("tasks.form.start_time") %>
     <%= form.datetime_select :start_time, :ampm => true, :order => [:day, :month, :year] %>
   </div>
 
   <div>
-    <%= form.label :end_time, "#{I18n.t("tasks.form.end_time")}" %>
+    <%= form.label :end_time, I18n.t("tasks.form.end_time") %>
     <%= form.datetime_select :end_time, :ampm => true, :order => [:day, :month, :year] %>
   </div>
 
   <div>
-    <%= form.label :status, "#{I18n.t("tasks.form.status")}" %>
+    <%= form.label :status, I18n.t("tasks.form.status") %>
     <%= form.select :status, options_for_select([
                                                   [I18n.t("activerecord.attributes.task/status.pending"), "pending"],
                                                   [I18n.t("activerecord.attributes.task/status.ongoing"), "ongoing"],
@@ -33,8 +33,8 @@
   </div>
 
   <div>
-    <%= form.label :description, "#{I18n.t("tasks.form.description")}" %>
-    <%= form.text_area :description, placeholder: "#{I18n.t("tasks.form.placeholder.description")}" %>
+    <%= form.label :description, I18n.t("tasks.form.description") %>
+    <%= form.text_area :description, placeholder: I18n.t("tasks.form.placeholder.description") %>
   </div>
 
   <%= form.submit %>

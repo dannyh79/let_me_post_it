@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   def index
     # for search & sort
     case 
-      # sort
+      # search
     when params[:title] != nil || params[:status] != nil
       case
       when params[:title] != "" && params[:status] != ""
@@ -15,7 +15,7 @@ class TasksController < ApplicationController
         @tasks = Task.by_status(params[:status])
       end
 
-      # search
+      # sort
     when params[:created_at] != ""
       case params[:created_at]
       when "asc"

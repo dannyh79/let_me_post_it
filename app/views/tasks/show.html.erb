@@ -1,5 +1,5 @@
 <h1><%= I18n.t("tasks.heading.view_task") %></h1>
-<%= link_to "#{I18n.t("tasks.back_to_task_list")}", tasks_path %>
+<%= link_to I18n.t("tasks.back_to_task_list"), tasks_path %>
 <table>
   <thead>
     <th><%= I18n.t("tasks.table.title") %></th>
@@ -17,8 +17,8 @@
       <td><%= I18n.t("activerecord.attributes.task/status.#{@task.status}") if @task.status %></td>
       <td><%= @task.description %></td>
       <td>
-        <%= link_to "#{I18n.t("tasks.table.edit")}", edit_task_path(id: @task.id) %>
-        <%= delete_link_to "#{I18n.t("tasks.table.delete")}", task_path(id: @task.id) %>
+        <%= link_to I18n.t("tasks.table.edit"), edit_task_path(id: @task.id) %>
+        <%= delete_link_to I18n.t("tasks.table.delete"), task_path(id: @task.id) %>
       </td>
     </tr>
   </tbody>
