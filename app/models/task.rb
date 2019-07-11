@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
   enum status: [:pending, :ongoing, :done]
+  enum priority: [:low, :mid, :high]
 
   scope :created_at_asc, -> { order(created_at: :asc) }
   scope :created_at_desc, -> { order(created_at: :desc) }
