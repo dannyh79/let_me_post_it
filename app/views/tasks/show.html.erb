@@ -1,22 +1,22 @@
 <h1><%= I18n.t("tasks.heading.view_task") %></h1>
 <%= link_to I18n.t("tasks.back_to_task_list"), tasks_path %>
-<table>
+<table class="table table-striped">
   <thead>
-    <th><%= I18n.t("tasks.table.title") %></th>
-    <th><%= I18n.t("tasks.table.start_time") %></th>
-    <th><%= I18n.t("tasks.table.end_time") %></th>
-    <th><%= I18n.t("tasks.table.status") %></th>
-    <th><%= I18n.t("tasks.table.description") %></th>
-    <th><%= I18n.t("tasks.table.edit") %></th>
+    <th class="text-center"><%= I18n.t("tasks.table.title") %></th>
+    <th class="text-center"><%= I18n.t("tasks.table.start_time") %></th>
+    <th class="text-center"><%= I18n.t("tasks.table.end_time") %></th>
+    <th class="text-center status"><%= I18n.t("tasks.table.status") %></th>
+    <th class="text-center"><%= I18n.t("tasks.table.description") %></th>
+    <th class="text-center"><%= I18n.t("tasks.table.edit") %></th>
   </thead>
   <tbody>
     <tr>
-      <td><%= @task.title %> (<%= I18n.t("tasks.table.priority") %> <%= I18n.t("activerecord.attributes.task/priority.#{@task.priority}") %>)</td>
-      <td><%= I18n.l(@task.start_time, format: :long) %></td>
-      <td><%= I18n.l(@task.end_time, format: :long) %></td>
-      <td><%= I18n.t("activerecord.attributes.task/status.#{@task.status}") %></td>
+      <td class="d-flex flex-wrap"><%= @task.title %> <span>(<%= I18n.t("tasks.table.priority") %> <%= I18n.t("activerecord.attributes.task/priority.#{@task.priority}") %>)</span></td>
+      <td class="text-center"><%= I18n.l(@task.start_time, format: :long) %></td>
+      <td class="text-center"><%= I18n.l(@task.end_time, format: :long) %></td>
+      <td class="text-center"><%= I18n.t("activerecord.attributes.task/status.#{@task.status}") %></td>
       <td><%= @task.description %></td>
-      <td>
+      <td class="d-flex flex-wrap justify-content-center">
         <%= link_to I18n.t("tasks.table.edit"), edit_task_path(id: @task.id) %>
         <%= delete_link_to I18n.t("tasks.table.delete"), task_path(id: @task.id) %>
       </td>

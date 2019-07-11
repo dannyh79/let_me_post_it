@@ -1,6 +1,6 @@
 module TasksHelper
   def flash_message(message_type)
-    %Q(<p class="#{message_type}"\>#{flash[message_type]}</p\>).html_safe
+    %Q(<p class="flash_#{message_type}"\>#{flash[message_type]}</p\>).html_safe
   end
 
   def delete_link_to(label, url)

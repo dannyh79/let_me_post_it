@@ -1,8 +1,15 @@
+a[href="/tasks/new"] {
+  display: block;
+  text-align: center;
+}
 .ellipsis {
   display: inline-block;
   vertical-align: middle;
   white-space: nowrap;
-  width: 100px;
+  width: 300px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+// for show.html.erb
+.text-center.status { width: 100px; }
