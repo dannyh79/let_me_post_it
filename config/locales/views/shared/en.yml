@@ -1,5 +1,12 @@
 en:
   site_title: 'Let Me Post It: A Light-Weighted Task Manager'
+  views:
+    pagination:
+      first: 'First page'
+      last: 'Last page'
+      previous: 'Previous page'
+      next: 'Next page'
+      truncate: '...'
   are_you_sure: 'Are you sure?'
   helpers:
     submit:

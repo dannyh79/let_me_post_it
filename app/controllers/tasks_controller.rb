@@ -1,6 +1,5 @@
 class TasksController < ApplicationController
   before_action :find_task, only: [:show, :edit, :update, :destroy]
-
   def index
     # for search & sort
     case 
@@ -8,40 +7,40 @@ class TasksController < ApplicationController
     when params[:title] != nil || params[:status] != nil
       case
       when params[:title] != "" && params[:status] != ""
-        @tasks = Task.by_title_and_status(params[:title], params[:status])
+        @tasks = Task.by_title_and_status(params[:title], params[:status]).page(params[:page]).per(10)
       when params[:title] != "" && params[:status] == ""
-        @tasks = Task.by_title(params[:title]).order(status: :asc)
+        @tasks = Task.by_title(params[:title]).order(status: :asc).page(params[:page]).per(10)
       when params[:title] == "" && params[:status] != ""
-        @tasks = Task.by_status(params[:status])
+        @tasks = Task.by_status(params[:status]).page(params[:page]).per(10)
       end
 
       # sort
     when params[:created_at] != ""
       case params[:created_at]
       when "asc"
-        @tasks = Task.created_at_asc
+        @tasks = Task.created_at_asc.page(params[:page]).per(10)
       when "desc"
-        @tasks = Task.created_at_desc
+        @tasks = Task.created_at_desc.page(params[:page]).per(10)
       end      
     when params[:end_time] != ""
       case params[:end_time]
       when "asc"
-        @tasks = Task.end_time_asc
+        @tasks = Task.end_time_asc.page(params[:page]).per(10)
       when "desc"
-        @tasks = Task.end_time_desc
+        @tasks = Task.end_time_desc.page(params[:page]).per(10)
       end
     when params[:priority] != ""
       case params[:priority]
       when "asc"
-        @tasks = Task.priority_asc
+        @tasks = Task.priority_asc.page(params[:page]).per(10)
       when "desc"
-        @tasks = Task.priority_desc
+        @tasks = Task.priority_desc.page(params[:page]).per(10)
       end
     end
 
     # When none of the search conditionals or sort methods is present 
     if @tasks.nil?
-      @tasks = Task.all
+      @tasks = Task.page(params[:page]).per(10)
     end
 
   end
