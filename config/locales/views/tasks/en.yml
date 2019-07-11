@@ -41,6 +41,7 @@ en:
       attributes:
         created_at: 'By time created: '
         end_time: 'By end time: '
+        priority: 'By priority'
       asc: 'Ascending'
       desc: 'Descending'
       submit: 'Submit'

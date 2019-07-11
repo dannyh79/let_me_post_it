@@ -41,7 +41,10 @@ zh-TW:
       attributes:
         created_at: '依建立時間：'
         end_time: '依結束時間：'
+        priority: '依優先度：'
       asc: '升冪'
       desc: '降冪'
+      priority_asc: '由低至高'
+      priority_desc: '由高至低'
       submit: '送出'
     back_to_task_list: '回到任務清單'

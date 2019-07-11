@@ -149,108 +149,136 @@ RSpec.describe Task, type: :feature do
   end
 
   describe 'sorting' do
-    it 'by "created_at" ASC' do
-      tasks = []
-      5.times do |index|
-        task = create(:task, title: "#{index} #{title}")
-        tasks << task
+    context 'by "created_at"' do
+      before do
+        @tasks = []
+        5.times do |index|
+          task = create(:task, title: "#{index} #{title}")
+          @tasks << task
+        end
+        visit tasks_path
       end
-
-      visit tasks_path
-
-      within('table#table_tasks') do
-        expect(page).to have_content(
-          /#{tasks[0][:title]}+#{tasks[1][:title]}+#{tasks[2][:title]}+#{tasks[3][:title]}+#{tasks[4][:title]}+/
-        )
+      it 'ASC' do  
+        within('table#table_tasks') do
+          expect(page).to have_content(
+            /#{@tasks[0][:title]}+#{@tasks[1][:title]}+#{@tasks[2][:title]}+#{@tasks[3][:title]}+#{@tasks[4][:title]}+/
+          )
+        end
+        within('form.form_sort') do
+          select I18n.t("tasks.form_select.asc"), from: 'created_at'
+          click_on I18n.t("tasks.form_select.submit")
+        end
+        within('table#table_tasks') do
+          expect(page).to have_content(
+            /#{@tasks[0][:title]}+#{@tasks[1][:title]}+#{@tasks[2][:title]}+#{@tasks[3][:title]}+#{@tasks[4][:title]}+/
+          )
+        end
       end
-      within('form.form_sort') do
-        select I18n.t("tasks.form_select.asc"), from: 'created_at'
-        click_on I18n.t("tasks.form_select.submit")
+  
+      it 'DESC' do  
+        within('table#table_tasks') do
+          expect(page).to have_content(
+            /#{@tasks[0][:title]}+#{@tasks[1][:title]}+#{@tasks[2][:title]}+#{@tasks[3][:title]}+#{@tasks[4][:title]}+/
+          )
+        end
+        within('form.form_sort') do
+          select I18n.t("tasks.form_select.desc"), from: 'created_at'
+          click_on I18n.t("tasks.form_select.submit")
+        end
+        within('table#table_tasks') do
+          expect(page).to have_content(
+            /#{@tasks[4][:title]}+#{@tasks[3][:title]}+#{@tasks[2][:title]}+#{@tasks[1][:title]}+#{@tasks[0][:title]}+/
+          )
+        end
       end
-      within('table#table_tasks') do
-        expect(page).to have_content(
-          /#{tasks[0][:title]}+#{tasks[1][:title]}+#{tasks[2][:title]}+#{tasks[3][:title]}+#{tasks[4][:title]}+/
-        )
-      end
-
-      # save_and_open_page
     end
 
-    it 'by "created_at" DESC' do
-      tasks = []
-      5.times do |index|
-        task = create(:task, title: "#{index} #{title}")
-        tasks << task
+    context 'by "end_time"' do
+      before do
+        @task_with_mid_end_time = create(:task, end_time: Time.now)
+        @task_with_late_end_time = create(:task, end_time: Time.now + 1.day)
+        @task_with_early_end_time = create(:task, end_time: Time.now - 1.day)
+  
+        visit tasks_path
       end
-      
-      visit tasks_path
-
-      within('table#table_tasks') do
-        expect(page).to have_content(
-          /#{tasks[0][:title]}+#{tasks[1][:title]}+#{tasks[2][:title]}+#{tasks[3][:title]}+#{tasks[4][:title]}+/
-        )
+      it 'ASC' do
+        within('table#table_tasks') do
+          expect(page).to have_content(
+            /.*#{I18n.l(@task_with_mid_end_time.end_time, format: :long)}+.*#{I18n.l(@task_with_late_end_time.end_time, format: :long)}+.*#{I18n.l(@task_with_early_end_time.end_time, format: :long)}+.*/
+          )
+        end
+        within('form.form_sort') do
+          select I18n.t("tasks.form_select.asc"), from: 'end_time'
+          click_on I18n.t("tasks.form_select.submit")
+        end
+        within('table#table_tasks') do
+          expect(page).to have_content(
+            /.*#{I18n.l(@task_with_early_end_time.end_time, format: :long)}+.*#{I18n.l(@task_with_mid_end_time.end_time, format: :long)}+.*#{I18n.l(@task_with_late_end_time.end_time, format: :long)}+.*/
+          )
+        end
       end
-      within('form.form_sort') do
-        select I18n.t("tasks.form_select.desc"), from: 'created_at'
-        click_on I18n.t("tasks.form_select.submit")
+  
+      it 'DESC' do
+        within('table#table_tasks') do
+          expect(page).to have_content(
+            /.*#{I18n.l(@task_with_mid_end_time.end_time, format: :long)}+.*#{I18n.l(@task_with_late_end_time.end_time, format: :long)}+.*#{I18n.l(@task_with_early_end_time.end_time, format: :long)}+.*/
+          )
+        end
+        within('form.form_sort') do
+          select I18n.t("tasks.form_select.desc"), from: 'end_time'
+          click_on I18n.t("tasks.form_select.submit")
+        end
+        within('table#table_tasks') do
+          expect(page).to have_content(
+            /.*#{I18n.l(@task_with_late_end_time.end_time, format: :long)}+.*#{I18n.l(@task_with_mid_end_time.end_time, format: :long)}+.*#{I18n.l(@task_with_early_end_time.end_time, format: :long)}+.*/
+          )
+        end
       end
-      within('table#table_tasks') do
-        expect(page).to have_content(
-          /#{tasks[4][:title]}+#{tasks[3][:title]}+#{tasks[2][:title]}+#{tasks[1][:title]}+#{tasks[0][:title]}+/
-        )
-      end
-
-      # save_and_open_page
     end
 
-    it 'by "end_time" ASC' do
-      task_with_mid_end_time = create(:task, end_time: Time.now)
-      task_with_late_end_time = create(:task, end_time: Time.now + 1.day)
-      task_with_early_end_time = create(:task, end_time: Time.now - 1.day)
+    context 'by "priority"' do
+      titles = [Faker::Lorem.sentence, Faker::Lorem.sentence, Faker::Lorem.sentence]
+      # priority => { 0: "low", 1: "mid", 2: "high" }
+      before do
+        instance_variable_set "@task1", create(:task, title: titles[0], priority: 2)
+        instance_variable_set "@task2", create(:task, title: titles[1], priority: 0)
+        instance_variable_set "@task3", create(:task, title: titles[2], priority: 1)
 
-      visit tasks_path
-
-      within('table#table_tasks') do
-        expect(page).to have_content(
-          /.*#{I18n.l(task_with_mid_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_late_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_early_end_time.end_time, format: :long)}+.*/
-        )
+        visit tasks_path
       end
-      within('form.form_sort') do
-        select I18n.t("tasks.form_select.asc"), from: 'end_time'
-        click_on I18n.t("tasks.form_select.submit")
-      end
-      within('table#table_tasks') do
-        expect(page).to have_content(
-          /.*#{I18n.l(task_with_early_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_mid_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_late_end_time.end_time, format: :long)}+.*/
-        )
-      end
-
-      # save_and_open_page
-    end
-
-    it 'by "end_time" DESC' do
-      task_with_mid_end_time = create(:task, end_time: Time.now)
-      task_with_early_end_time = create(:task, end_time: Time.now - 1.day)
-      task_with_late_end_time = create(:task, end_time: Time.now + 1.day)
-
-      visit tasks_path
-
-      within('table#table_tasks') do
-        expect(page).to have_content(
-          /.*#{I18n.l(task_with_mid_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_early_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_late_end_time.end_time, format: :long)}+.*/
-        )
-      end
-      within('form.form_sort') do
-        select I18n.t("tasks.form_select.desc"), from: 'end_time'
-        click_on I18n.t("tasks.form_select.submit")
-      end
-      within('table#table_tasks') do
-        expect(page).to have_content(
-          /.*#{I18n.l(task_with_late_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_mid_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_early_end_time.end_time, format: :long)}+.*/
-        )
+      it 'ASC' do
+        within('table#table_tasks') do
+          expect(page).to have_content(
+            /#{@task1[:title]}+#{@task2[:title]}+#{@task3[:title]}+/
+          )
+        end
+        within('form.form_sort') do
+          select I18n.t("tasks.form_select.priority_asc"), from: 'priority'
+          click_on I18n.t("tasks.form_select.submit")
+        end
+        within('table#table_tasks') do
+          expect(page).to have_content(
+            /#{@task2[:title]}+#{@task3[:title]}+#{@task1[:title]}+/
+          )
+        end        
       end
 
-      # save_and_open_page
+      it 'DESC' do
+        within('table#table_tasks') do
+          expect(page).to have_content(
+            /#{@task1[:title]}+#{@task2[:title]}+#{@task3[:title]}+/
+          )
+        end
+        within('form.form_sort') do
+          select I18n.t("tasks.form_select.priority_desc"), from: 'priority'
+          click_on I18n.t("tasks.form_select.submit")
+        end
+        within('table#table_tasks') do
+          expect(page).to have_content(
+            /#{@task1[:title]}+#{@task3[:title]}+#{@task2[:title]}+/
+          )
+        end        
+      end
     end
   end
 
@@ -263,9 +291,10 @@ RSpec.describe Task, type: :feature do
       instance_variable_set "@task3", create(:task, title: titles[2], status: 0)
       instance_variable_set "@task4", create(:task, title: titles[2], status: 2)
       instance_variable_set "@task5", create(:task, title: titles[1], status: 1)
+      
+      visit tasks_path
     end
     it 'by title' do
-      visit tasks_path
       within('form.form_search') do
         fill_in I18n.t("tasks.search_field.attributes.title.placeholder"), with: @task1.title
         click_on I18n.t("tasks.search_field.submit")
@@ -276,7 +305,6 @@ RSpec.describe Task, type: :feature do
     end
     
     it 'by status' do
-      visit tasks_path
       within('form.form_search') do
         select I18n.t("activerecord.attributes.task/status.ongoing"), from: 'status'
         click_on I18n.t("tasks.search_field.submit")
@@ -287,7 +315,6 @@ RSpec.describe Task, type: :feature do
     end
 
     it 'by title and status' do
-      visit tasks_path
       within('form.form_search') do
         fill_in I18n.t("tasks.search_field.attributes.title.placeholder"), with: @task3.title
         select I18n.t("activerecord.attributes.task/status.pending"), from: 'status'

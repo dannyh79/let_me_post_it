@@ -30,33 +30,14 @@ class TasksController < ApplicationController
       when "desc"
         @tasks = Task.end_time_desc
       end
+    when params[:priority] != ""
+      case params[:priority]
+      when "asc"
+        @tasks = Task.priority_asc
+      when "desc"
+        @tasks = Task.priority_desc
+      end
     end
-
-    # case params[:title] != nil || params[:status] != nil
-    # when params[:title] != "" && params[:status] != ""
-    #   @tasks = Task.by_title_and_status(params[:title], params[:status])
-    # when params[:title] != "" && params[:status] == ""
-    #   @tasks = Task.by_title(params[:title]).order(status: :asc)
-    # when params[:title] == "" && params[:status] != ""
-    #   @tasks = Task.by_status(params[:status])
-    # end
-
-    # case params[:created_at] != nil || params[:end_time] != nil
-    # when params[:created_at] != ""
-    #   case params[:created_at]
-    #   when "asc"
-    #     @tasks = Task.created_at_asc
-    #   when "desc"
-    #     @tasks = Task.created_at_desc
-    #   end      
-    # when params[:end_time] != ""
-    #   case params[:end_time]
-    #   when "asc"
-    #     @tasks = Task.end_time_asc
-    #   when "desc"
-    #     @tasks = Task.end_time_desc
-    #   end
-    # end
 
     # When none of the search conditionals or sort methods is present 
     if @tasks.nil?
