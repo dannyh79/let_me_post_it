@@ -212,7 +212,7 @@ RSpec.describe Task, type: :feature do
 
       within('table#table_tasks') do
         expect(page).to have_content(
-          /.*\b#{I18n.l(task_with_mid_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_late_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_early_end_time.end_time, format: :long)}\b+.*/
+          /.*#{I18n.l(task_with_mid_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_late_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_early_end_time.end_time, format: :long)}+.*/
         )
       end
       within('form.form_sort') do
@@ -221,7 +221,7 @@ RSpec.describe Task, type: :feature do
       end
       within('table#table_tasks') do
         expect(page).to have_content(
-          /.*\b#{I18n.l(task_with_early_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_mid_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_late_end_time.end_time, format: :long)}\b+.*/
+          /.*#{I18n.l(task_with_early_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_mid_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_late_end_time.end_time, format: :long)}+.*/
         )
       end
 
@@ -237,7 +237,7 @@ RSpec.describe Task, type: :feature do
 
       within('table#table_tasks') do
         expect(page).to have_content(
-          /.*\b#{I18n.l(task_with_mid_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_early_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_late_end_time.end_time, format: :long)}\b+.*/
+          /.*#{I18n.l(task_with_mid_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_early_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_late_end_time.end_time, format: :long)}+.*/
         )
       end
       within('form.form_sort') do
@@ -246,14 +246,57 @@ RSpec.describe Task, type: :feature do
       end
       within('table#table_tasks') do
         expect(page).to have_content(
-          /.*\b#{I18n.l(task_with_late_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_mid_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_early_end_time.end_time, format: :long)}\b+.*/
+          /.*#{I18n.l(task_with_late_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_mid_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_early_end_time.end_time, format: :long)}+.*/
         )
       end
 
       # save_and_open_page
     end
+  end
 
+  describe 'searching' do
+    titles = [Faker::Lorem.sentence, Faker::Lorem.sentence, Faker::Lorem.sentence]
+    # status => { 0: "pending", 1: "ongoing", 2: "done" }
+    before do
+      instance_variable_set "@task1", create(:task, title: titles[0], status: 2)
+      instance_variable_set "@task2", create(:task, title: titles[1], status: 1)
+      instance_variable_set "@task3", create(:task, title: titles[2], status: 0)
+      instance_variable_set "@task4", create(:task, title: titles[2], status: 2)
+      instance_variable_set "@task5", create(:task, title: titles[1], status: 1)
+    end
+    it 'by title' do
+      visit tasks_path
+      within('form.form_search') do
+        fill_in I18n.t("tasks.search_field.attributes.title.placeholder"), with: @task1.title
+        click_on I18n.t("tasks.search_field.submit")
+      end
+      within('table#table_tasks') do
+        expect(page).to have_content(/.*#{@task1.title}+.*/)
+      end
+    end
+    
+    it 'by status' do
+      visit tasks_path
+      within('form.form_search') do
+        select I18n.t("activerecord.attributes.task/status.ongoing"), from: 'status'
+        click_on I18n.t("tasks.search_field.submit")
+      end
+      within('table#table_tasks') do
+        expect(page).to have_content(/.*#{@task2.title}+.*#{@task5.title}+.*/)
+      end
+    end
 
+    it 'by title and status' do
+      visit tasks_path
+      within('form.form_search') do
+        fill_in I18n.t("tasks.search_field.attributes.title.placeholder"), with: @task3.title
+        select I18n.t("activerecord.attributes.task/status.pending"), from: 'status'
+        click_on I18n.t("tasks.search_field.submit")
+      end
+      within('table#table_tasks') do
+        expect(page).to have_content(/.*#{@task3.title}+.*/)
+      end
+    end
   end
 
 
