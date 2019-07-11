@@ -5,6 +5,7 @@ RSpec.describe Task, type: :model do
     it { should validate_presence_of(:title) }
     it { should validate_presence_of(:description) }
     it { should validate_presence_of(:status) }
+    it { should validate_presence_of(:priority) }
     it 'should always be after end time' do
       task_with_valid_input = Task.new(
                                 title: Faker::Lorem.sentence,
@@ -57,9 +58,9 @@ RSpec.describe Task, type: :model do
         result_done << task.title
       end
       
-      expect(result_pending).to eq [@task3.title, @task6.title, @task9.title]
-      expect(result_ongoing).to eq [@task2.title, @task5.title, @task8.title]
-      expect(result_done).to eq [@task1.title, @task4.title, @task7.title]
+      expect(result_pending.sort_by{ |title| title.downcase }).to eq [@task3.title, @task6.title, @task9.title].sort_by{ |title| title.downcase }
+      expect(result_ongoing.sort_by{ |title| title.downcase }).to eq [@task2.title, @task5.title, @task8.title].sort_by{ |title| title.downcase }
+      expect(result_done.sort_by{ |title| title.downcase }).to eq [@task1.title, @task4.title, @task7.title].sort_by{ |title| title.downcase }
     end
 
     it 'should be by title' do

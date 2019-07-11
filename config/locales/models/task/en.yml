@@ -6,12 +6,16 @@ en:
       task:
         title: 'Title'
         description: 'Description'
-        start_time: '任務開始時間'
-        end_time: '任務結束時間'
+        start_time: 'Start time'
+        end_time: 'End time'
       task/status:
         pending: 'pending'
         ongoing: 'ongoing'
         done: 'done'
+      task/priority:
+        low: 'low'
+        mid: 'mid'
+        high: 'high'
     errors:
       models:
         task:

@@ -1,0 +1,17 @@
+<div>
+  <%= label_tag :search_field, I18n.t("tasks.search_field.label") %>
+  <%= form_tag(tasks_path, method: 'get', class: 'form_search') do %>
+      <%= label_tag :title, I18n.t("tasks.search_field.attributes.title.label") %>
+      <%= text_field_tag :title, nil, placeholder: I18n.t("tasks.search_field.attributes.title.placeholder") %>
+      <%= label_tag :status, I18n.t("tasks.search_field.attributes.status.label") %>
+      <%= select_tag :status, 
+          options_for_select([
+                              [I18n.t("activerecord.attributes.task/status.pending"), "pending"],
+                              [I18n.t("activerecord.attributes.task/status.ongoing"), "ongoing"],
+                              [I18n.t("activerecord.attributes.task/status.done"), "done"]
+                            ]),
+          include_blank: true
+      %>
+    <%= submit_tag I18n.t("tasks.search_field.submit") %>
+  <% end %>
+</div>
