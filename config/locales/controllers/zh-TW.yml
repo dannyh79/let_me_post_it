@@ -1,5 +1,7 @@
 zh-TW:
   tasks:
+    index: 
+      alert: '查無結果！'
     create:
       notice: '任務新增成功！'
     update: 

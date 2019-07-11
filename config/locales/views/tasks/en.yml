@@ -27,7 +27,17 @@ en:
         title: 'e.g. "Sweep the floor"'
         description: 'e.g. "Also take garbage out to the bin"'
       submit: 'Create Task'
+    search_field:
+      label: 'Search the tasks:'
+      attributes:
+        title:
+          label: 'By title: '
+          placeholder: 'Please enter the keyword'
+        status: 
+          label: 'By status: '
+      submit: 'Search'
     form_select:
+      label: 'Sort the tasks by: '
       attributes:
         created_at: 'By time created: '
         end_time: 'By end time: '

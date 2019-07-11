@@ -1,5 +1,7 @@
 en:
   tasks:
+    index: 
+      alert: 'Failed: no result based on the condition given!'
     create:
       notice: 'Success: a new task is created!'
     update: 

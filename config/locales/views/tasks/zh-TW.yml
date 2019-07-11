@@ -27,7 +27,17 @@ zh-TW:
         title: "例：掃地"
         description: "例：順便把垃圾拿出去外面丟"
       submit: '新增任務'
+    search_field:
+      label: '搜尋任務：'
+      attributes:
+        title:
+          label: '依標題：'
+          placeholder: '請輸入關鍵字'
+        status:
+          label: '依狀態：'
+      submit: '搜尋'
     form_select:
+      label: '排序任務：'
       attributes:
         created_at: '依建立時間：'
         end_time: '依結束時間：'

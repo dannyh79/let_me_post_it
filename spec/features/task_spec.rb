@@ -14,29 +14,29 @@ RSpec.describe Task, type: :feature do
       # test if the data entries are shown in index page
       expect(page).to have_css(
                                 'table tbody tr:first-child td:first-child', 
-                                text: "#{Task.first.title}"
+                                text: Task.first.title
                               )
       expect(page).to have_css(
                                 'table tbody tr:first-child td:nth-child(6)', 
-                                text: "#{Task.first.description}"
+                                text: Task.first.description
                               )
       
       expect(page).to have_css(
                                 'table tbody tr:nth-child(2) td:first-child', 
-                                text: "#{Task.second.title}"
+                                text: Task.second.title
                               )
       expect(page).to have_css(
                                 'table tbody tr:nth-child(2) td:nth-child(6)', 
-                                text: "#{Task.second.description}"
+                                text: Task.second.description
                               )
       
       expect(page).to have_css(
                                 'table tbody tr:nth-child(3) td:first-child', 
-                                text: "#{Task.third.title}"
+                                text: Task.third.title
                               )
       expect(page).to have_css(
                                 'table tbody tr:nth-child(3) td:nth-child(6)', 
-                                text: "#{Task.third.description}"
+                                text: Task.third.description
                               )
     end
   end
@@ -44,7 +44,7 @@ RSpec.describe Task, type: :feature do
   describe 'create a task' do
     it 'with title and description' do
       create_task_with(title, description)
-      expect(page).to have_content("#{I18n.t("tasks.create.notice")}")
+      expect(page).to have_content(I18n.t("tasks.create.notice"))
       expect(page).to have_content(title)
       expect(page).to have_content(description)
     end
@@ -100,7 +100,7 @@ RSpec.describe Task, type: :feature do
       
       expect(page).to have_content(new_title)
       expect(page).to have_content(new_description)
-      expect(page).to have_content("#{I18n.t("tasks.update.notice")}")
+      expect(page).to have_content(I18n.t("tasks.update.notice"))
     end
 
     it 'without input' do
@@ -143,15 +143,15 @@ RSpec.describe Task, type: :feature do
   describe 'delete a task' do
     it do
       create_task_with(title, description)
-      click_on "#{I18n.t("tasks.table.delete")}"
-      expect(page).to have_content("#{I18n.t("tasks.destroy.notice")}")
+      click_on I18n.t("tasks.table.delete")
+      expect(page).to have_content(I18n.t("tasks.destroy.notice"))
     end
   end
 
   describe 'sorting' do
     it 'by "created_at" ASC' do
       tasks = []
-      3.times do |index|
+      5.times do |index|
         task = create(:task, title: "#{index} #{title}")
         tasks << task
       end
@@ -160,16 +160,16 @@ RSpec.describe Task, type: :feature do
 
       within('table#table_tasks') do
         expect(page).to have_content(
-          /#{tasks[0][:title]}+#{tasks[1][:title]}+#{tasks[2][:title]}/
+          /#{tasks[0][:title]}+#{tasks[1][:title]}+#{tasks[2][:title]}+#{tasks[3][:title]}+#{tasks[4][:title]}+/
         )
       end
       within('form.form_sort') do
-        select "#{I18n.t("tasks.form_select.asc")}", from: 'created_at'
-        click_on "#{I18n.t("tasks.form_select.submit")}"
+        select I18n.t("tasks.form_select.asc"), from: 'created_at'
+        click_on I18n.t("tasks.form_select.submit")
       end
       within('table#table_tasks') do
         expect(page).to have_content(
-          /#{tasks[0][:title]}+#{tasks[1][:title]}+#{tasks[2][:title]}/
+          /#{tasks[0][:title]}+#{tasks[1][:title]}+#{tasks[2][:title]}+#{tasks[3][:title]}+#{tasks[4][:title]}+/
         )
       end
 
@@ -178,7 +178,7 @@ RSpec.describe Task, type: :feature do
 
     it 'by "created_at" DESC' do
       tasks = []
-      3.times do |index|
+      5.times do |index|
         task = create(:task, title: "#{index} #{title}")
         tasks << task
       end
@@ -187,16 +187,16 @@ RSpec.describe Task, type: :feature do
 
       within('table#table_tasks') do
         expect(page).to have_content(
-          /#{tasks[0][:title]}+#{tasks[1][:title]}+#{tasks[2][:title]}/
+          /#{tasks[0][:title]}+#{tasks[1][:title]}+#{tasks[2][:title]}+#{tasks[3][:title]}+#{tasks[4][:title]}+/
         )
       end
       within('form.form_sort') do
-        select "#{I18n.t("tasks.form_select.desc")}", from: 'created_at'
-        click_on "#{I18n.t("tasks.form_select.submit")}"
+        select I18n.t("tasks.form_select.desc"), from: 'created_at'
+        click_on I18n.t("tasks.form_select.submit")
       end
       within('table#table_tasks') do
         expect(page).to have_content(
-          /#{tasks[2][:title]}+#{tasks[1][:title]}+#{tasks[0][:title]}/
+          /#{tasks[4][:title]}+#{tasks[3][:title]}+#{tasks[2][:title]}+#{tasks[1][:title]}+#{tasks[0][:title]}+/
         )
       end
 
@@ -205,23 +205,23 @@ RSpec.describe Task, type: :feature do
 
     it 'by "end_time" ASC' do
       task_with_mid_end_time = create(:task, end_time: Time.now)
-      task_with_late_end_time = create(:task, end_time: Time.now + 1)
-      task_with_early_end_time = create(:task, end_time: Time.now - 1)
+      task_with_late_end_time = create(:task, end_time: Time.now + 1.day)
+      task_with_early_end_time = create(:task, end_time: Time.now - 1.day)
 
       visit tasks_path
 
       within('table#table_tasks') do
         expect(page).to have_content(
-          /.*\b#{I18n.l(task_with_mid_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_late_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_early_end_time.end_time, format: :long)}\b+.*/i
+          /.*#{I18n.l(task_with_mid_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_late_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_early_end_time.end_time, format: :long)}+.*/
         )
       end
       within('form.form_sort') do
-        select "#{I18n.t("tasks.form_select.asc")}", from: 'end_time'
-        click_on "#{I18n.t("tasks.form_select.submit")}"
+        select I18n.t("tasks.form_select.asc"), from: 'end_time'
+        click_on I18n.t("tasks.form_select.submit")
       end
       within('table#table_tasks') do
         expect(page).to have_content(
-          /.*\b#{I18n.l(task_with_early_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_mid_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_late_end_time.end_time, format: :long)}\b+.*/i
+          /.*#{I18n.l(task_with_early_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_mid_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_late_end_time.end_time, format: :long)}+.*/
         )
       end
 
@@ -230,30 +230,73 @@ RSpec.describe Task, type: :feature do
 
     it 'by "end_time" DESC' do
       task_with_mid_end_time = create(:task, end_time: Time.now)
-      task_with_early_end_time = create(:task, end_time: Time.now - 1)
-      task_with_late_end_time = create(:task, end_time: Time.now + 1)
+      task_with_early_end_time = create(:task, end_time: Time.now - 1.day)
+      task_with_late_end_time = create(:task, end_time: Time.now + 1.day)
 
       visit tasks_path
 
       within('table#table_tasks') do
         expect(page).to have_content(
-          /.*\b#{I18n.l(task_with_mid_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_late_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_early_end_time.end_time, format: :long)}\b+.*/i
+          /.*#{I18n.l(task_with_mid_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_early_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_late_end_time.end_time, format: :long)}+.*/
         )
       end
       within('form.form_sort') do
-        select "#{I18n.t("tasks.form_select.asc")}", from: 'end_time'
-        click_on "#{I18n.t("tasks.form_select.submit")}"
+        select I18n.t("tasks.form_select.desc"), from: 'end_time'
+        click_on I18n.t("tasks.form_select.submit")
       end
       within('table#table_tasks') do
         expect(page).to have_content(
-          /.*\b#{I18n.l(task_with_late_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_mid_end_time.end_time, format: :long)}\b+.*\b#{I18n.l(task_with_early_end_time.end_time, format: :long)}\b+.*/i
+          /.*#{I18n.l(task_with_late_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_mid_end_time.end_time, format: :long)}+.*#{I18n.l(task_with_early_end_time.end_time, format: :long)}+.*/
         )
       end
 
       # save_and_open_page
     end
+  end
 
+  describe 'searching' do
+    titles = [Faker::Lorem.sentence, Faker::Lorem.sentence, Faker::Lorem.sentence]
+    # status => { 0: "pending", 1: "ongoing", 2: "done" }
+    before do
+      instance_variable_set "@task1", create(:task, title: titles[0], status: 2)
+      instance_variable_set "@task2", create(:task, title: titles[1], status: 1)
+      instance_variable_set "@task3", create(:task, title: titles[2], status: 0)
+      instance_variable_set "@task4", create(:task, title: titles[2], status: 2)
+      instance_variable_set "@task5", create(:task, title: titles[1], status: 1)
+    end
+    it 'by title' do
+      visit tasks_path
+      within('form.form_search') do
+        fill_in I18n.t("tasks.search_field.attributes.title.placeholder"), with: @task1.title
+        click_on I18n.t("tasks.search_field.submit")
+      end
+      within('table#table_tasks') do
+        expect(page).to have_content(/.*#{@task1.title}+.*/)
+      end
+    end
+    
+    it 'by status' do
+      visit tasks_path
+      within('form.form_search') do
+        select I18n.t("activerecord.attributes.task/status.ongoing"), from: 'status'
+        click_on I18n.t("tasks.search_field.submit")
+      end
+      within('table#table_tasks') do
+        expect(page).to have_content(/.*#{@task2.title}+.*#{@task5.title}+.*/)
+      end
+    end
 
+    it 'by title and status' do
+      visit tasks_path
+      within('form.form_search') do
+        fill_in I18n.t("tasks.search_field.attributes.title.placeholder"), with: @task3.title
+        select I18n.t("activerecord.attributes.task/status.pending"), from: 'status'
+        click_on I18n.t("tasks.search_field.submit")
+      end
+      within('table#table_tasks') do
+        expect(page).to have_content(/.*#{@task3.title}+.*/)
+      end
+    end
   end
 
 
@@ -262,17 +305,17 @@ RSpec.describe Task, type: :feature do
   def create_task_with(title, description)
     visit new_task_path
     within('form.form_task') do
-      fill_in "#{I18n.t("tasks.table.title")}", with: title
-      fill_in "#{I18n.t("tasks.table.description")}", with: description
-      click_on "#{I18n.t("helpers.submit.task.create", model: I18n.t("activerecord.models.task"))}"
+      fill_in I18n.t("tasks.table.title"), with: title
+      fill_in I18n.t("tasks.table.description"), with: description
+      click_on I18n.t("helpers.submit.task.create", model: I18n.t("activerecord.models.task"))
     end
   end
 
   def edit_task_with(new_title = nil, new_description = nil)
     within('form.form_task') do
-      fill_in "#{I18n.t("tasks.table.title")}", with: new_title
-      fill_in "#{I18n.t("tasks.table.description")}", with: new_description
-      click_on "#{I18n.t("helpers.submit.task.update", model: I18n.t("activerecord.models.task"))}"
+      fill_in I18n.t("tasks.table.title"), with: new_title
+      fill_in I18n.t("tasks.table.description"), with: new_description
+      click_on I18n.t("helpers.submit.task.update", model: I18n.t("activerecord.models.task"))
     end
   end
 
