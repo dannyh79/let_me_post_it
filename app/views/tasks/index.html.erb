@@ -1,34 +1,38 @@
-<h1><%= I18n.t("tasks.heading.index") %></h1>
+<h1 class="text-center"><%= I18n.t("tasks.heading.index") %></h1>
 <%= link_to I18n.t("tasks.table.create_a_new_task"), new_task_path %>
 
-<%= render 'tasks/shared/form_search' %>
-<%= render 'tasks/shared/form_sort' %>
+<div class="container">
+  <%= render 'tasks/shared/form_search' %>
+  <%= render 'tasks/shared/form_sort' %>
+</div>
 
-<table id="table_tasks">
+<%= paginate @tasks %>
+
+<table id="table_tasks" class="table table-striped">
   <thead>
     <tr>
-      <th><%= I18n.t("tasks.table.title") %></th>
-      <th><%= I18n.t("tasks.table.start_time") %></th>
-      <th><%= I18n.t("tasks.table.end_time") %></th>
-      <th><%= I18n.t("tasks.table.priority") %></th>
-      <th><%= I18n.t("tasks.table.status") %></th>
-      <th><%= I18n.t("tasks.table.description") %></th>
-      <th><%= I18n.t("tasks.table.edit") %></th>
+      <th class="text-center"><%= I18n.t("tasks.table.title") %></th>
+      <th class="text-center"><%= I18n.t("tasks.table.start_time") %></th>
+      <th class="text-center"><%= I18n.t("tasks.table.end_time") %></th>
+      <th class="text-center"><%= I18n.t("tasks.table.priority") %></th>
+      <th class="text-center"><%= I18n.t("tasks.table.status") %></th>
+      <th class="text-center"><%= I18n.t("tasks.table.description") %></th>
+      <th class="text-center"><%= I18n.t("tasks.table.edit") %></th>
     </tr>
   </thead>
   <tbody>
     <% @tasks.each do |task| %>      
       <tr>
-        <td><%= task.title %></td>
-        <td><%= I18n.l(task.start_time, format: :long) %></td>
-        <td><%= I18n.l(task.end_time, format: :long) %></td>
-        <td><%= I18n.t("activerecord.attributes.task/priority.#{task.priority}") %></td>
-        <td><%= I18n.t("activerecord.attributes.task/status.#{task.status}") %></td>
+        <td class="ellipsis"><%= task.title %></td>
+        <td class="text-center"><%= I18n.l(task.start_time, format: :long) %></td>
+        <td class="text-center"><%= I18n.l(task.end_time, format: :long) %></td>
+        <td class="text-center"><%= I18n.t("activerecord.attributes.task/priority.#{task.priority}") %></td>
+        <td class="text-center"><%= I18n.t("activerecord.attributes.task/status.#{task.status}") %></td>
         <td>
           <span class="ellipsis"><%= task.description %></span>
           <%= link_to I18n.t("tasks.table.view"), task_path(task.id) %>
         </td>
-        <td>
+        <td class="text-center">
           <%= link_to I18n.t("tasks.table.edit"), edit_task_path(id: task.id) %>
           <%= delete_link_to I18n.t("tasks.table.delete"), task_path(id: task.id) %>
         </td>
@@ -36,5 +40,3 @@
     <% end %>
   </tbody>
 </table>
-
-<%= paginate @tasks %>

@@ -1,0 +1,21 @@
+.pagination {
+  justify-content: center;
+
+  .page.gap {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+  }
+  .page-item.page.current {
+    height: 100%;
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    background-color: #eee;
+    border: 1px solid #dee2e6;
+  }
+}

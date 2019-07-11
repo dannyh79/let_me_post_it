@@ -7,40 +7,40 @@ class TasksController < ApplicationController
     when params[:title] != nil || params[:status] != nil
       case
       when params[:title] != "" && params[:status] != ""
-        @tasks = Task.by_title_and_status(params[:title], params[:status]).page(params[:page]).per(10)
+        @tasks = Task.by_title_and_status(params[:title], params[:status]).page(params[:page]).per(8)
       when params[:title] != "" && params[:status] == ""
-        @tasks = Task.by_title(params[:title]).order(status: :asc).page(params[:page]).per(10)
+        @tasks = Task.by_title(params[:title]).order(status: :asc).page(params[:page]).per(8)
       when params[:title] == "" && params[:status] != ""
-        @tasks = Task.by_status(params[:status]).page(params[:page]).per(10)
+        @tasks = Task.by_status(params[:status]).page(params[:page]).per(8)
       end
 
       # sort
     when params[:created_at] != ""
       case params[:created_at]
       when "asc"
-        @tasks = Task.created_at_asc.page(params[:page]).per(10)
+        @tasks = Task.created_at_asc.page(params[:page]).per(8)
       when "desc"
-        @tasks = Task.created_at_desc.page(params[:page]).per(10)
+        @tasks = Task.created_at_desc.page(params[:page]).per(8)
       end      
     when params[:end_time] != ""
       case params[:end_time]
       when "asc"
-        @tasks = Task.end_time_asc.page(params[:page]).per(10)
+        @tasks = Task.end_time_asc.page(params[:page]).per(8)
       when "desc"
-        @tasks = Task.end_time_desc.page(params[:page]).per(10)
+        @tasks = Task.end_time_desc.page(params[:page]).per(8)
       end
     when params[:priority] != ""
       case params[:priority]
       when "asc"
-        @tasks = Task.priority_asc.page(params[:page]).per(10)
+        @tasks = Task.priority_asc.page(params[:page]).per(8)
       when "desc"
-        @tasks = Task.priority_desc.page(params[:page]).per(10)
+        @tasks = Task.priority_desc.page(params[:page]).per(8)
       end
     end
 
     # When none of the search conditionals or sort methods is present 
     if @tasks.nil?
-      @tasks = Task.page(params[:page]).per(10)
+      @tasks = Task.page(params[:page]).per(8)
     end
 
   end
