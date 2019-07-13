@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe Task, type: :feature do
   describe 'CRUD' do
     let(:title) { Faker::Lorem.sentence }
-    let(:start_time) { Time.now }
-    let(:end_time) { Time.now + 1.day }
+    let(:start_time) { DateTime.now }
+    let(:end_time) { DateTime.now + 1.day }
     let(:description) { Faker::Lorem.paragraph }
 
     let(:new_title) { Faker::Lorem.sentence }
-    let(:new_start_time) { Time.now + 1.day }
-    let(:new_end_time) { Time.now + 2.day }
+    let(:new_start_time) { DateTime.now + 1.day }
+    let(:new_end_time) { DateTime.now + 2.day }
     let(:new_description) { Faker::Lorem.paragraph }
 
     let(:title_error) {
