@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   include SessionsHelper
-
+  before_action :require_login
   before_action :find_task, only: [:show, :edit, :update, :destroy]
   after_action :include_user, only: [:index]
 
