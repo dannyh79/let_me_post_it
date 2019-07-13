@@ -124,13 +124,19 @@ RSpec.describe Task, type: :feature do
           "low", 
           "done"
         )
-        
+
+        updated_task = all('#table_tasks tr:first-child td').map(&:text)
+        expected_outcome = [
+          Task.first.title,
+          I18n.l(Task.first.created_at, format: :long),
+          I18n.l(Task.first.start_time, format: :long),
+          I18n.l(Task.first.end_time, format: :long),
+          I18n.t("activerecord.attributes.task/priority.#{Task.first.priority}"),
+          I18n.t("activerecord.attributes.task/status.#{Task.first.status}")
+        ]
+
         expect(page).to have_content(I18n.t("tasks.update.notice"))
-        expect(page).to have_content(new_title)
-        expect(page).to have_content(I18n.l(new_start_time, format: :long))
-        expect(page).to have_content(I18n.l(new_end_time, format: :long))
-        expect(page).to have_content(I18n.t("activerecord.attributes.task/priority.low"))
-        expect(page).to have_content(I18n.t("activerecord.attributes.task/status.done"))
+        expect(updated_task.any? { expected_outcome } ).to be true
       end
   
       it 'should not update without title, start/end time, and description' do
