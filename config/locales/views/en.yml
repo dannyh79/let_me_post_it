@@ -1,0 +1,101 @@
+en:
+  tasks:
+    heading:
+      index: 'Task List'
+      create_a_new_task: 'Create a New Task'
+      view_task: 'View Task'
+      edit_the_task: 'Edit the Task'
+    table:
+      create_a_new_task: 'Create a New Task'
+      title: 'Title'
+      created_at: 'Created at'
+      priority: 'Priority'
+      start_time: 'Start Time'
+      end_time: 'End Time'
+      status: 'Status'
+      description: 'Description'
+      edit: 'Edit'
+      delete: 'Delete'
+      view: 'View'
+    form:
+      title: 'Title:'
+      priority: 'Priority:'
+      start_time: 'Start Time:'
+      end_time: 'End Time:'
+      status: 'Status:'
+      description: 'Description:'
+      placeholder:
+        title: 'e.g. "Sweep the floor"'
+        description: 'e.g. "Also take garbage out to the bin"'
+      submit: 'Create Task'
+    search_field:
+      label: 'Search the tasks:'
+      attributes:
+        title:
+          label: 'By title: '
+          placeholder: 'Please enter the keyword'
+        status: 
+          label: 'By status: '
+      submit: 'Search'
+    form_select:
+      label: 'Sort the tasks by: '
+      attributes:
+        created_at: 'By time created: '
+        end_time: 'By end time: '
+        priority: 'By priority'
+      asc: 'Ascending'
+      desc: 'Descending'
+      submit: 'Submit'
+    back_to_task_list: 'Back to Task List'
+  sessions:
+    heading:
+      new: 'User Login'
+    form_login:
+      email: 'Email: '
+      password: 'Password: '
+      submit: 'Log in'
+  users: 
+    heading:
+      new: 'User Sign up'
+      edit: 'Edit User'
+    form:
+      email: 'Email:'
+      password: 'Password:'
+      password_confirmation: 'Enter the password again: '
+      submit: 'Submit'
+    back_to_root_path: 'Back to Index'
+  site_title: 'Let Me Post It: A Light-Weighted Task Manager'
+  views:
+    nav:
+      login: 'Log in'
+      logout: 'Log out'
+      signup: 'Sign up'
+      edit: 'Edit User'
+    pagination:
+      first: 'First page'
+      last: 'Last page'
+      previous: 'Previous page'
+      next: 'Next page'
+      truncate: '...'
+  are_you_sure: 'Are you sure?'
+  helpers:
+    submit:
+      task:
+        create: "Create %{model}"
+        update: "Update %{model}"
+  time:
+    am: 'am'
+    pm: 'pm'
+    formats:
+      default: "%Y-%m-%d %A %H:%M:%S %Z"
+      long: "%Y-%m-%d %H:%M"
+      short: "%m-%d %H:%M"
+  date:
+    formats:
+      default: "%Y-%m-%d"
+      short: "%m-%d"
+      long: "%Y-%m-%d"
+    day_names: [Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday]
+    abbr_day_names: [Mon, Tue, Wed, Thu, Fri, Sat, Sun]
+    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
+    abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]

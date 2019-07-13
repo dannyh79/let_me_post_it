@@ -17,6 +17,11 @@ zh-TW:
         low: '低'
         mid: '中'
         high: '高'
+      user:
+        email: '電郵信箱'
+        password_digest: '密碼'
+        password: '密碼'
+        password_confirmation: '確認密碼'
     errors:
       models:
         task:
@@ -32,4 +37,16 @@ zh-TW:
             user:
               required: '需要有使用者！'
             must_be_after_the_start_time: "一定要在任務開始時間之後！"
+        user:
+          attributes:
+            email:
+              blank: '不能為空白！'
+              invalid: '輸入格式有誤！'
+            password_digest:
+              blank: '不能為空白！'
+            password:
+              blank: '不能為空白！'
+            password_confirmation:
+              confirmation:
+                blank: '不能為空白！'
             

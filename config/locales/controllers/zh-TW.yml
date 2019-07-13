@@ -1,6 +1,14 @@
 zh-TW:
+  sessions:
+    create:
+      notice: '登入成功！'
+      alert: '輸入的使用者信箱或密碼有誤，請重新確認後再次輸入！'
+    destroy:
+      notice: '登出成功！'
   tasks:
     index: 
+      alert: '查無結果！'
+    show:
       alert: '查無結果！'
     create:
       notice: '任務新增成功！'
@@ -9,3 +17,7 @@ zh-TW:
     destroy:
       notice: '任務刪除成功！'
       alert: '資料庫查無此任務！'
+  users:
+    create:
+      notice: '註冊成功！'
+      alert: '更新失敗，請檢查輸入資料是否有誤！'

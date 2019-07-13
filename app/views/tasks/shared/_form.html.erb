@@ -9,7 +9,7 @@
 <%= form_for(task, html: { class: 'form_task' }) do |form| %>
   
   <%# To be changed: User.last.id -> current_user.id %>
-  <%= form.hidden_field :user_id, value: User.last.id %>
+  <%= form.hidden_field :user_id, value: current_user.id %>
 
   <div>
     <%= form.label :title, I18n.t("tasks.form.title") %>
