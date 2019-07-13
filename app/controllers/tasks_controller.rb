@@ -1,33 +1,35 @@
 class TasksController < ApplicationController
+  include SessionsHelper
+
   before_action :find_task, only: [:show, :edit, :update, :destroy]
   after_action :include_user, only: [:index]
 
   def index
-    @tasks = Task.sorted_by("created_at_asc").page(params[:page]).per(8)
+    @tasks = current_user.tasks.sorted_by("created_at_asc").page(params[:page]).per(8)
     
     case
       # sort
     when params[:created_at] != nil
-      @tasks = Task.sorted_by("created_at_#{params[:created_at]}").page(params[:page]).per(8)
+      @tasks = current_user.tasks.sorted_by("created_at_#{params[:created_at]}").page(params[:page]).per(8)
     when params[:end_time] != nil
-      @tasks = Task.sorted_by("end_time_#{params[:end_time]}").page(params[:page]).per(8)
+      @tasks = current_user.tasks.sorted_by("end_time_#{params[:end_time]}").page(params[:page]).per(8)
     when params[:priority] != nil
-      @tasks = Task.sorted_by("priority_#{params[:priority]}").page(params[:page]).per(8)
+      @tasks = current_user.tasks.sorted_by("priority_#{params[:priority]}").page(params[:page]).per(8)
 
       # search
     when params[:title] != nil || params[:status] != nil
       case
         # search by title
       when params[:status] == ""
-        @tasks = Task.by_title(params[:title]).order(status: :asc).page(params[:page]).per(8)
+        @tasks = current_user.tasks.by_title(params[:title]).order(status: :asc).page(params[:page]).per(8)
         
         # search by status
       when params[:title] == ""
-        @tasks = Task.by_status(params[:status]).page(params[:page]).per(8)
+        @tasks = current_user.tasks.by_status(params[:status]).page(params[:page]).per(8)
 
         # search by both title and status
       when params[:title] != "" && params[:status] != ""
-        @tasks = Task.by_title_and_status(params[:title], params[:status]).page(params[:page]).per(8)
+        @tasks = current_user.tasks.by_title_and_status(params[:title], params[:status]).page(params[:page]).per(8)
       end
     end
   end

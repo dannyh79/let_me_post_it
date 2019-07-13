@@ -1,7 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :feature do
-  before { create(:user) }
+  before {
+    create(:user)
+    visit root_path
+    
+    fill_in 'Email', with: "email@email.com"
+    fill_in 'Password', with: "111111"
+    click_on 'Login'
+  }
   
   describe 'CRUD' do
     let(:title) { Faker::Lorem.sentence }
