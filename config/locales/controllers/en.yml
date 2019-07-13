@@ -1,6 +1,14 @@
 en:
+  sessions:
+    create:
+      notice: 'Logged in successfully!'
+      alert: 'Email or password input is invalid. Please check and enter again!'
+    destroy:
+      notice: 'Logged out successfully!'
   tasks:
     index: 
+      alert: 'Failed: no result based on the condition given!'
+    show:
       alert: 'Failed: no result based on the condition given!'
     create:
       notice: 'Success: a new task is created!'
@@ -9,3 +17,7 @@ en:
     destroy:
       notice: 'Success: the task is deleted!'
       alert: 'Failed: could not find/delete the task'
+  users:
+    create:
+      notice: 'Signed up successfully!'
+      alert: 'Signed up failed. Please check and enter again!'

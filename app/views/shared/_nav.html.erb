@@ -7,14 +7,17 @@
     <ul class="navbar-nav mr-auto">
       <% if current_user %>
         <li class="nav-item">
-          <%= link_to 'Log out', logout_path, class: 'nav-link' %>
+          <%#= link_to I18n.t("views.nav.edit"), edit_user_path(id: current_user.id), class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to I18n.t("views.nav.logout"), logout_path, class: 'nav-link' %>
         </li>
       <% else %>
         <li class="nav-item">
-          <%= link_to 'Log in', login_path, class: 'nav-link' %>
+          <%= link_to I18n.t("views.nav.login"), login_path, class: 'nav-link' %>
         </li>
         <li class="nav-item">
-          <%= link_to 'Sign up', signup_path, class: 'nav-link' %>
+          <%= link_to I18n.t("views.nav.signup"), signup_path, class: 'nav-link' %>
         </li>
       <% end %>
     </ul>

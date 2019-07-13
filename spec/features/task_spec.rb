@@ -4,10 +4,12 @@ RSpec.describe Task, type: :feature do
   before {
     create(:user)
     visit root_path
-    
-    fill_in 'Email', with: "email@email.com"
-    fill_in 'Password', with: "111111"
-    click_on 'Login'
+
+    within('form[action="/sessions"]') do
+      fill_in :email, with: "email@email.com"
+      fill_in :password, with: "111111"
+      click_on I18n.t("sessions.form_login.submit")
+    end
   }
   
   describe 'CRUD' do
@@ -355,7 +357,7 @@ RSpec.describe Task, type: :feature do
     context 'by "title"' do
       it 'should show the result according to search condition' do
         within('form.form_search') do
-          fill_in I18n.t("tasks.search_field.attributes.title.placeholder"), with: @task1.title
+          fill_in :title, with: @task1.title
           click_on I18n.t("tasks.search_field.submit")
         end
 
@@ -384,7 +386,7 @@ RSpec.describe Task, type: :feature do
     context 'by title and status' do
       it 'should show the result according to search condition' do
         within('form.form_search') do
-          fill_in I18n.t("tasks.search_field.attributes.title.placeholder"), with: @task3.title
+          fill_in :title, with: @task3.title
           # select "pending"
           select I18n.t("activerecord.attributes.task/status.pending"), from: 'status'
           click_on I18n.t("tasks.search_field.submit")

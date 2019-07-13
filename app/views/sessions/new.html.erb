@@ -1,17 +1,15 @@
-<h1>User Login</h1>
+<h1><%=  I18n.t("sessions.heading.new") %></h1>
 
 <%= form_tag sessions_path do |form| %>
   <div class="field">
-    <%= label_tag :email %>
+    <%= label_tag :email, I18n.t("sessions.form_login.email") %>
     <%= text_field_tag :email %>
   </div>
   <div class="field">
-    <%= label_tag :password %>
+    <%= label_tag :password, I18n.t("sessions.form_login.password") %>
     <%= password_field_tag :password %>
   </div>
   <div class="actions">
-    <%= submit_tag 'Login' %>
+    <%= submit_tag I18n.t("sessions.form_login.submit"), class: 'btn btn-primary' %>
   </div>
 <% end %>
-
-<%= link_to 'New User', new_user_path %>

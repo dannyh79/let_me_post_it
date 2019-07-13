@@ -32,3 +32,15 @@ en:
             user:
               required: 'is required!'
             must_be_after_the_start_time: "must be after the start time!"
+        user:
+          attributes:
+            email:
+              blank: 'CAN NOT BE BLANK!'
+              invalid: 'invalid format!'
+            password_digest:
+              blank: 'CAN NOT BE BLANK!'
+            password:
+              blank: 'CAN NOT BE BLANK!'
+            password_confirmation:
+              confirmation:
+                blank: 'CAN NOT BE BLANK!'

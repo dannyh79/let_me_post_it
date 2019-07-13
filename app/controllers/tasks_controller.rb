@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   include SessionsHelper
-  
+
   before_action :require_login
   before_action :find_task, only: [:show, :edit, :update, :destroy]
   after_action :include_user, only: [:index]
@@ -80,10 +80,11 @@ class TasksController < ApplicationController
   end
 
   def find_task
-    if Task.find(params[:id]).user_id != current_user.id
-      return redirect_to (request.referer || tasks_path), alert: 'You shall not pass!' 
+    if Task.find(params[:id]).user_id == current_user.id
+      @task = current_user.tasks.find(params[:id])
+    else
+      redirect_to (request.referer || tasks_path), alert: t('.alert')
     end
-    @task = current_user.tasks.find(params[:id])
   end
 
   def include_user
