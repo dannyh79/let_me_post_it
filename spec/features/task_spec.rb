@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :feature do
+  before { create(:user) }
+  
   describe 'CRUD' do
     let(:title) { Faker::Lorem.sentence }
     let(:start_time) { DateTime.now }
@@ -47,7 +49,6 @@ RSpec.describe Task, type: :feature do
             description
           ) 
         }.to change{ Task.count }.from(0).to(1)
-  
         expect(page).to have_content(I18n.t("tasks.create.notice"))
         expect(page).to have_content(Task.first.title)
       end

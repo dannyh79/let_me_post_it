@@ -4,6 +4,7 @@ en:
       task: 'Task'
     attributes:
       task:
+        user: 'User'
         title: 'Title'
         description: 'Description'
         start_time: 'Start time'
@@ -28,4 +29,6 @@ en:
               blank: 'CAN NOT BE BLANK!'
             description:
               blank: 'CAN NOT BE BLANK!' 
+            user:
+              required: 'is required!'
             must_be_after_the_start_time: "must be after the start time!"

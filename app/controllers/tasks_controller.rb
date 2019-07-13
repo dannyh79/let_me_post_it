@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :find_task, only: [:show, :edit, :update, :destroy]
+  after_action :include_user, only: [:index]
 
   def index
     @tasks = Task.sorted_by("created_at_asc").page(params[:page]).per(8)
@@ -72,10 +73,14 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :start_time, :end_time, :priority, :status, :description)
+    params.require(:task).permit(:title, :start_time, :end_time, :priority, :status, :description, :user_id)
   end
 
   def find_task
     @task = Task.find(params[:id])
+  end
+
+  def include_user
+    @tasks = @tasks.includes(:user)
   end
 end
