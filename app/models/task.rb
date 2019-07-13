@@ -16,10 +16,6 @@ class Task < ApplicationRecord
       raise(ArgumentError, "Invalid sort option: #{sort_option.inspect}")
     end
   }
-  
-  scope :pending, -> { where(status: :pending).order(title: :asc) }
-  scope :ongoing, -> { where(status: :ongoing).order(title: :asc) }
-  scope :done, -> { where(status: :done).order(title: :asc) }
   scope :by_title, -> (title) { where('title ILIKE ?', "%#{title}%") }
   scope :by_status, -> (status) { where(status: status).order(title: :asc) }
   scope :by_title_and_status, -> (title, status) { where('title ILIKE ?', "%#{title}%").where(status: status) }

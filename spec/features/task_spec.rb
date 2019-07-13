@@ -323,50 +323,65 @@ RSpec.describe Task, type: :feature do
         expect(text_after_click).to eq(desc_result)      
       end
     end
-    
-    # context 'searching' do
-    #   titles = [Faker::Lorem.sentence, Faker::Lorem.sentence, Faker::Lorem.sentence]
-    #   # status => { 0: "pending", 1: "ongoing", 2: "done" }
-    #   before do
-    #     instance_variable_set "@task1", create(:task, title: titles[0], status: 2)
-    #     instance_variable_set "@task2", create(:task, title: titles[1], status: 1)
-    #     instance_variable_set "@task3", create(:task, title: titles[2], status: 0)
-    #     instance_variable_set "@task4", create(:task, title: titles[2], status: 2)
-    #     instance_variable_set "@task5", create(:task, title: titles[1], status: 1)
-        
-    #     visit tasks_path
-    #   end
-    #   it 'by title' do
-    #     within('form.form_search') do
-    #       fill_in I18n.t("tasks.search_field.attributes.title.placeholder"), with: @task1.title
-    #       click_on I18n.t("tasks.search_field.submit")
-    #     end
-    #     within('table#table_tasks') do
-    #       expect(page).to have_content(/.*#{@task1.title}+.*/)
-    #     end
-    #   end
+  end
+
+  describe 'searching' do
+    titles = [Faker::Lorem.sentence, Faker::Lorem.sentence, Faker::Lorem.sentence]
+    # status: { 0: "pending", 1: "ongoing", 2: "done" }
+    before do
+      instance_variable_set "@task1", create(:task, title: titles[0], status: 2)
+      instance_variable_set "@task2", create(:task, title: titles[1], status: 1)
+      instance_variable_set "@task3", create(:task, title: titles[2], status: 0)
+      instance_variable_set "@task4", create(:task, title: titles[2], status: 2)
+      instance_variable_set "@task5", create(:task, title: titles[1], status: 1)
       
-    #   it 'by status' do
-    #     within('form.form_search') do
-    #       select I18n.t("activerecord.attributes.task/status.ongoing"), from: 'status'
-    #       click_on I18n.t("tasks.search_field.submit")
-    #     end
-    #     within('table#table_tasks') do
-    #       expect(page).to have_content(/.*#{@task2.title}+.*#{@task5.title}+.*/)
-    #     end
-    #   end
-  
-    #   it 'by title and status' do
-    #     within('form.form_search') do
-    #       fill_in I18n.t("tasks.search_field.attributes.title.placeholder"), with: @task3.title
-    #       select I18n.t("activerecord.attributes.task/status.pending"), from: 'status'
-    #       click_on I18n.t("tasks.search_field.submit")
-    #     end
-    #     within('table#table_tasks') do
-    #       expect(page).to have_content(/.*#{@task3.title}+.*/)
-    #     end
-    #   end
-    # end
+      visit tasks_path
+    end
+    
+    context 'by "title"' do
+      it 'should show the result according to search condition' do
+        within('form.form_search') do
+          fill_in I18n.t("tasks.search_field.attributes.title.placeholder"), with: @task1.title
+          click_on I18n.t("tasks.search_field.submit")
+        end
+
+        search_result = all('#table_tasks tr td:first-child').map(&:text)
+        expected_outcome = [@task1.title]
+
+        expect(search_result).to eq expected_outcome
+      end
+    end
+    
+    context 'by "status"' do
+      it 'should show the result according to search condition' do
+        within('form.form_search') do
+          # select "ongoing"
+          select I18n.t("activerecord.attributes.task/status.ongoing"), from: 'status'
+          click_on I18n.t("tasks.search_field.submit")
+        end
+
+        search_result = all('#table_tasks tr td:first-child').map(&:text)
+        expected_outcome = [@task2.title, @task5.title]
+
+        expect(search_result).to eq expected_outcome
+      end
+    end
+
+    context 'by title and status' do
+      it 'should show the result according to search condition' do
+        within('form.form_search') do
+          fill_in I18n.t("tasks.search_field.attributes.title.placeholder"), with: @task3.title
+          # select "pending"
+          select I18n.t("activerecord.attributes.task/status.pending"), from: 'status'
+          click_on I18n.t("tasks.search_field.submit")
+        end
+        
+        search_result = all('#table_tasks tr td:first-child').map(&:text)
+        expected_outcome = [@task3.title]
+
+        expect(search_result).to eq expected_outcome
+      end
+    end
   end
 
 
