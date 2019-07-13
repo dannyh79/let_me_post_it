@@ -14,21 +14,35 @@
   
   <div>
     <%= form.label :start_time, I18n.t("tasks.form.start_time") %>
-    <%= form.datetime_select :start_time, :ampm => true, :order => [:day, :month, :year] %>
+    <%= form.datetime_field :start_time %>
   </div>
 
   <div>
     <%= form.label :end_time, I18n.t("tasks.form.end_time") %>
-    <%= form.datetime_select :end_time, :ampm => true, :order => [:day, :month, :year] %>
+    <%= form.datetime_field :end_time %>
+  </div>
+
+  <div>
+    <%= form.label :priority, I18n.t("tasks.form.priority") %>
+    <%= 
+      form.select :priority, 
+      options_for_select([
+        [I18n.t("activerecord.attributes.task/priority.low"), "low"],
+        [I18n.t("activerecord.attributes.task/priority.mid"), "mid"],
+        [I18n.t("activerecord.attributes.task/priority.high"), "high"]
+      ]) 
+    %>
   </div>
 
   <div>
     <%= form.label :status, I18n.t("tasks.form.status") %>
-    <%= form.select :status, options_for_select([
-                                                  [I18n.t("activerecord.attributes.task/status.pending"), "pending"],
-                                                  [I18n.t("activerecord.attributes.task/status.ongoing"), "ongoing"],
-                                                  [I18n.t("activerecord.attributes.task/status.done"), "done"]
-                                                ]) 
+    <%= 
+      form.select :status, 
+      options_for_select([
+        [I18n.t("activerecord.attributes.task/status.pending"), "pending"],
+        [I18n.t("activerecord.attributes.task/status.ongoing"), "ongoing"],
+        [I18n.t("activerecord.attributes.task/status.done"), "done"]
+      ]) 
     %>
   </div>
 
