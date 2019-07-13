@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Task, type: :model do
+  before { create(:user) }
+
   describe "data input" do
     it { should validate_presence_of(:title) }
     it { should validate_presence_of(:description) }
@@ -11,13 +13,19 @@ RSpec.describe Task, type: :model do
                                 title: Faker::Lorem.sentence,
                                 start_time: Time.now - 1.day, 
                                 end_time: Time.now,
-                                description: Faker::Lorem.paragraph
+                                description: Faker::Lorem.paragraph,
+                                priority: 'mid',
+                                status: 'pending',
+                                user_id: User.last.id
                               )
       task_with_invalid_input = Task.new(
                                   title: Faker::Lorem.sentence,
                                   start_time: Time.now, 
                                   end_time: Time.now - 1.day,
-                                  description: Faker::Lorem.paragraph
+                                  description: Faker::Lorem.paragraph,
+                                  priority: 'mid',
+                                  status: 'pending',
+                                  user_id: User.last.id
                                 )
 
       task_with_valid_input.save
@@ -29,6 +37,7 @@ RSpec.describe Task, type: :model do
       expect(task_with_invalid_input).to_not be_valid
     end
   end
+  
   describe "sort" do
     titles = [Faker::Lorem.sentence, Faker::Lorem.sentence, Faker::Lorem.sentence]
     # status => { 0: "pending", 1: "ongoing", 2: "done" }
