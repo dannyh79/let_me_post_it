@@ -1,6 +1,18 @@
 class TasksController < ApplicationController
   before_action :find_task, only: [:show, :edit, :update, :destroy]
+
   def index
+    @tasks = Task.sorted_by("created_at_asc").page(params[:page]).per(8)
+    
+    case
+    when params[:created_at] != nil
+      @tasks = Task.sorted_by("created_at_#{params[:created_at]}").page(params[:page]).per(8)
+    when params[:end_time] != nil
+      @tasks = Task.sorted_by("end_time_#{params[:end_time]}").page(params[:page]).per(8)
+    when params[:priority] != nil
+      @tasks = Task.sorted_by("priority_#{params[:priority]}").page(params[:page]).per(8)
+    end
+
     # for search & sort
     case 
       # search
@@ -13,34 +25,6 @@ class TasksController < ApplicationController
       when params[:title] == "" && params[:status] != ""
         @tasks = Task.by_status(params[:status]).page(params[:page]).per(8)
       end
-
-      # sort
-    when params[:created_at] != ""
-      case params[:created_at]
-      when "asc"
-        @tasks = Task.created_at_asc.page(params[:page]).per(8)
-      when "desc"
-        @tasks = Task.created_at_desc.page(params[:page]).per(8)
-      end      
-    when params[:end_time] != ""
-      case params[:end_time]
-      when "asc"
-        @tasks = Task.end_time_asc.page(params[:page]).per(8)
-      when "desc"
-        @tasks = Task.end_time_desc.page(params[:page]).per(8)
-      end
-    when params[:priority] != ""
-      case params[:priority]
-      when "asc"
-        @tasks = Task.priority_asc.page(params[:page]).per(8)
-      when "desc"
-        @tasks = Task.priority_desc.page(params[:page]).per(8)
-      end
-    end
-
-    # When none of the search conditionals or sort methods is present 
-    if @tasks.nil?
-      @tasks = Task.page(params[:page]).per(8)
     end
 
   end
@@ -86,7 +70,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :description, :start_time, :end_time, :status)
+    params.require(:task).permit(:title, :start_time, :end_time, :priority, :status, :description)
   end
 
   def find_task

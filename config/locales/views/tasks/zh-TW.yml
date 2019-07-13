@@ -8,12 +8,13 @@ zh-TW:
     table:
       create_a_new_task: '創建一個新的任務'
       title: '標題'
+      created_at: '建立時間'
       priority: '優先度'
       start_time: '開始時間'
       end_time: '結束時間'
       status: '目前狀態'
       description: '描述'
-      edit: '修改'
+      edit: '編輯'
       delete: '刪除'
       view: '觀看內容'
     form:
