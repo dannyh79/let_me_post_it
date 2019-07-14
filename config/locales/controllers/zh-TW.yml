@@ -1,4 +1,13 @@
 zh-TW:
+  admin:
+    users:
+      create:
+        notice: '使用者新增成功！'
+      update:
+        notice: '使用者更新成功！'
+      destroy:
+        notice: '使用者刪除成功！'
+        alert: '使用者無法刪除！'
   sessions:
     login: 
       alert: '請先登入！'
@@ -23,3 +32,5 @@ zh-TW:
     create:
       notice: '註冊成功！'
       alert: '更新失敗，請檢查輸入資料是否有誤！'
+    update:
+      notice: '使用者更新成功！'

@@ -1,12 +1,8 @@
-class Admin::UsersController < ApplicationController
-  include SessionsHelper
-
-  before_action :require_login
-  before_action :find_user, only: [:show, :edit, :update, :destroy]
+class Admin::UsersController < Admin::BaseController
+  before_action :find_user, only: [:show, :edit, :destroy]
 
   def index
-    # @users = User.all.includes(:tasks).page(params[:page]).per(8)
-    @users = User.all.page(params[:page]).per(8)
+    @users = User.order(created_at: :asc).page(params[:page]).per(8)
   end
 
   def new
@@ -32,18 +28,20 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-    user = User.find_by_email(params[:user][:email])
-    if valid_password? && user.authenticate(params[:user][:old_password])
-      @user.update(user_params)
-      redirect_to admin_users_path, notice: 'User was successfully updated.'
-    else
-      render :edit
-    end
+    @user = User.find_by_email(params[:user][:email])
+    
+    @user.update(user_params)
+    redirect_to admin_users_path, notice: t('.notice')
   end
 
   def destroy
     @user.destroy
-    redirect_to admin_users_path, notice: 'User was successfully destroyed啦.'
+
+    if user_deleted?
+      redirect_to admin_users_path, notice: t('.notice')
+    else
+      redirect_to (request.referer || admin_users_path), alert: t('admin.users.destroy.alert')
+    end
   end
 
   private
@@ -53,6 +51,10 @@ class Admin::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation)
+    params.require(:user).permit(:email, :password, :password_confirmation, :role)
+  end
+
+  def user_deleted?
+    true if not User.find_by(id: @user.id)
   end
 end

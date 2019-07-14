@@ -95,6 +95,10 @@ zh-TW:
           role: '角色'
           task_count: '任務數量'
           edit_user: '編輯使用者'
+        form:
+          role:
+            label: '角色：'
+          submit: '送出'
         back_to_users_index: '回到使用者清單'
   are_you_sure: '你確定嗎？'
   helpers:
@@ -120,4 +124,3 @@ zh-TW:
     abbr_month_names: [~, 一月, 二月, 三月, 四月, 五月, 六月, 七月, 八月, 九月, 十月, 十一月, 十二月]
   unit:
     each: '個'
-  

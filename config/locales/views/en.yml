@@ -93,6 +93,10 @@ en:
           role: 'Role'
           task_count: 'Tasks count'
           edit_user: 'Edit User'
+        form:
+          role:
+            label: 'Role: '
+          submit: 'Submit'
         back_to_users_index: 'Back to User List'
   are_you_sure: 'Are you sure?'
   helpers:

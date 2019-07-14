@@ -1,5 +1,23 @@
 <h1><%= I18n.t("users.heading.edit") %></h1>
 
-<%= render 'user/shared/form_edit', user: @user, url: admin_user_path(@user) %>
+<%= form_for(@user, url: admin_user_path(@user)) do |form| %>
+  <div>
+    <%= form.label :email, I18n.t("users.form.email") %>
+    <%= form.text_field :email, readonly: 'readonly' %>
+  </div>
 
-<%= link_to I18n.t("users.back_to_root_path"), root_path, class: 'btn btn-light' %>
+  <div>
+    <%= form.label :role, I18n.t("views.backend.users.form.role.label") %>
+    <%= form.select :role, 
+        options_for_select([
+                            [I18n.t("activerecord.attributes.user.role.admin"), "admin"],
+                            [I18n.t("activerecord.attributes.user.role.user"), "user"]
+                            ], 
+                            @user.role
+                          )
+    %>
+  </div>
+  <%= form.submit I18n.t("views.backend.users.form.submit"), class: 'btn btn-primary' %>
+<% end %>
+
+<%= link_to I18n.t("views.backend.users.back_to_users_index"), admin_users_path, class: 'btn btn-light' %>
