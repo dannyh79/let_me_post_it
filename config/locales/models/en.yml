@@ -2,6 +2,7 @@ en:
   activerecord:
     models:
       task: 'Task'
+      user: 'User'
     attributes:
       task:
         user: 'User'

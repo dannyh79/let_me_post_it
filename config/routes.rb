@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'sessions#new'
+  root 'tasks#index'
   
   namespace :admin do
     root 'backend#index'

@@ -1,5 +1,7 @@
 zh-TW:
   sessions:
+    login: 
+      alert: '請先登入！'
     create:
       notice: '登入成功！'
       alert: '輸入的使用者信箱或密碼有誤，請重新確認後再次輸入！'

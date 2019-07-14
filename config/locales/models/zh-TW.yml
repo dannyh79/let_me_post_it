@@ -2,6 +2,7 @@ zh-TW:
   activerecord:
     models:
       task: '任務'
+      user: '使用者'
     attributes:
       task:
         user: '使用者'

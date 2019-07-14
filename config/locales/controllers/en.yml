@@ -1,5 +1,7 @@
 en:
   sessions:
+    login: 
+      alert: 'You must be logged in to access this section!'
     create:
       notice: 'Logged in successfully!'
       alert: 'Email or password input is invalid. Please check and enter again!'

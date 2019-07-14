@@ -1,15 +1,15 @@
-<h1>使用者清單啦<%#= I18n.t("tasks.heading.index") %></h1>
-<%= link_to '新增使用者啦', new_admin_user_path %>
+<h1><%= I18n.t("views.backend.users.heading.index") %></h1>
+<%= link_to I18n.t("views.backend.users.table.create_new_user"), new_admin_user_path %>
 
 <%= paginate @users %>
 
 <table id="table_tasks" class="table table-striped">
   <thead>
     <tr>
-      <th class="text-center">email 啦</th>
-      <th class="text-center">角色啦</th>
-      <th class="text-center">任務數量啦</th>
-      <th class="text-center"><%= I18n.t("tasks.table.edit") %></th>
+      <th class="text-center"><%= I18n.t("views.backend.users.table.email") %></th>
+      <th class="text-center"><%= I18n.t("views.backend.users.table.role") %></th>
+      <th class="text-center"><%= I18n.t("views.backend.users.table.task_count") %></th>
+      <th class="text-center"><%= I18n.t("views.backend.users.table.edit_user") %></th>
     </tr>
   </thead>
   <tbody>
@@ -17,7 +17,7 @@
       <tr>
         <td class="text-center"><%= user.email %></td>
         <td class="text-center"><%#= I18n.t("user.table.role.#{user.role}") %></td>
-        <td class="text-center"><%= link_to "有#{user.tasks_count}個任務啦", admin_user_path(id: user.id) %></td>
+        <td class="text-center"><%= link_to "#{I18n.t("views.backend.users.table.task_count")} #{user.tasks_count} #{I18n.t("unit.each")}", admin_user_path(id: user.id) %></td>
         <td class="text-center">
           <%= link_to I18n.t("tasks.table.edit"), edit_admin_user_path(id: user.id) %>
           <%= delete_link_to I18n.t("tasks.table.delete"), admin_user_path(id: user.id) %>

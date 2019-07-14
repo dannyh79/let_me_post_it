@@ -1,5 +1,5 @@
-<h1>使用者內容啦 <%= @user.email %> <%#= I18n.t("tasks.heading.index") %></h1>
-<%= link_to '回去使用者清單啦', admin_users_path %>
+<h1><%= I18n.t("activerecord.models.user") %> <%= @user.email %></h1>
+<%= link_to I18n.t("views.backend.users.back_to_users_index"), admin_users_path %>
 
 <%= paginate @tasks %>
 

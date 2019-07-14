@@ -81,6 +81,19 @@ en:
       previous: 'Previous page'
       next: 'Next page'
       truncate: '...'
+    backend:
+      users_index: 'Users'
+      users: 
+        heading:
+          index: 'User List'
+          edit: 'Edit User'
+        table:
+          create_new_user: 'Create a new user'
+          email: 'Email'
+          role: 'Role'
+          task_count: 'Tasks count'
+          edit_user: 'Edit User'
+        back_to_users_index: 'Back to User List'
   are_you_sure: 'Are you sure?'
   helpers:
     submit:
@@ -103,3 +116,5 @@ en:
     abbr_day_names: [Mon, Tue, Wed, Thu, Fri, Sat, Sun]
     month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
     abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+  unit:
+    each: 'each'

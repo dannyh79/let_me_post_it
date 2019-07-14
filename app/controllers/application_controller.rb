@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   private
  
   def require_login
-    redirect_to root_path, alert: "You must be logged in to access this section" if not logged_in?
+    redirect_to new_session_path, alert: t('sessions.login.alert') if not logged_in?
   end
 
   def logged_in?
