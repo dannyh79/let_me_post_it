@@ -1,4 +1,13 @@
 en:
+  admin:
+    users:
+      create:
+        notice: 'Success: a new user is created!'
+      update:
+        notice: 'Success: the user is updated!'
+      destroy:
+        notice: 'Success: the user is deleted!'
+        alert: 'Failed: unable to delete the user!'
   sessions:
     login: 
       alert: 'You must be logged in to access this section!'
@@ -23,3 +32,5 @@ en:
     create:
       notice: 'Signed up successfully!'
       alert: 'Signed up failed. Please check and enter again!'
+    update:
+      notice: 'Success: the user is updated!'

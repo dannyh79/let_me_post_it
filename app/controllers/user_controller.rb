@@ -24,7 +24,7 @@ class UserController < ApplicationController
     user = User.find_by_email(params[:user][:email])
     if valid_password? && user.authenticate(params[:user][:old_password])
       @user.update(user_params)
-      redirect_to tasks_path, notice: 'User was successfully updated.'
+      redirect_to tasks_path, notice: t('.notice')
     else
       render :edit
     end

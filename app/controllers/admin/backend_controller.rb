@@ -1,6 +1,4 @@
-class Admin::BackendController < ApplicationController
-  before_action :require_login
-
+class Admin::BackendController < Admin::BaseController
   def index
   end
 end

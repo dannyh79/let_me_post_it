@@ -1,7 +1,19 @@
 module SessionsHelper
+  def authenticate_user!
+    if not admin?
+      return redirect_to (request.referer || root_path), alert: '你不是管理員欸！'
+    end
+  end
+
   def current_user
     return if not session[:user_id]
     @current_user ||= User.find(session[:user_id])
+  end
+
+  def admin?
+    return true if current_user && current_user.role == 'admin'
+
+    return false
   end
 
   def valid_email?

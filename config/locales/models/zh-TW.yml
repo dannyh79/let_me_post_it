@@ -23,6 +23,9 @@ zh-TW:
         password_digest: '密碼'
         password: '密碼'
         password_confirmation: '確認密碼'
+        role:
+          admin: '管理員'
+          user: '使用者'
     errors:
       models:
         task:
