@@ -1,0 +1,28 @@
+<h1><%= I18n.t("views.backend.users.heading.index") %></h1>
+<%= link_to I18n.t("views.backend.users.table.create_new_user"), new_admin_user_path %>
+
+<%= paginate @users %>
+
+<table id="table_tasks" class="table table-striped">
+  <thead>
+    <tr>
+      <th class="text-center"><%= I18n.t("views.backend.users.table.email") %></th>
+      <th class="text-center"><%= I18n.t("views.backend.users.table.role") %></th>
+      <th class="text-center"><%= I18n.t("views.backend.users.table.task_count") %></th>
+      <th class="text-center"><%= I18n.t("views.backend.users.table.edit_user") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>      
+      <tr>
+        <td class="text-center"><%= user.email %></td>
+        <td class="text-center"><%#= I18n.t("user.table.role.#{user.role}") %></td>
+        <td class="text-center"><%= link_to "#{I18n.t("views.backend.users.table.task_count")} #{user.tasks_count} #{I18n.t("unit.each")}", admin_user_path(id: user.id) %></td>
+        <td class="text-center">
+          <%= link_to I18n.t("tasks.table.edit"), edit_admin_user_path(id: user.id) %>
+          <%= delete_link_to I18n.t("tasks.table.delete"), admin_user_path(id: user.id) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

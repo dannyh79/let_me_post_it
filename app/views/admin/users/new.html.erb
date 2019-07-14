@@ -1,5 +1,5 @@
 <h1><%= I18n.t("users.heading.new") %></h1>
 
-<%= render 'users/shared/form', user: @user %>
+<%= render 'user/shared/form', user: @user, url:  admin_users_path %>
 
 <%= link_to I18n.t("users.back_to_root_path"), root_path, class: 'btn btn-light' %>

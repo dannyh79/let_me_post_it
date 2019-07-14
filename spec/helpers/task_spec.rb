@@ -43,10 +43,10 @@ RSpec.describe Task, type: :helper do
   end
 
   describe 'sort_link' do
-    context 'when ordering tasks by "created_at"' do
-      let(:default_link) { "<a href=\"/tasks?created_at=desc\">some_label</a>" }
-      let(:asc_link) { "<a class=\"sort_link asc\" href=\"/tasks?created_at=desc\">some_label</a>" }
-      let(:desc_link) { "<a class=\"sort_link desc\" href=\"/tasks?created_at=asc\">some_label</a>" }
+    context 'when generating links to order tasks by "created_at" in "/tasks"' do
+      let(:default_link) { "<a href=\"/?created_at=desc\">some_label</a>" }
+      let(:asc_link) { "<a class=\"sort_link asc\" href=\"/?created_at=desc\">some_label</a>" }
+      let(:desc_link) { "<a class=\"sort_link desc\" href=\"/?created_at=asc\">some_label</a>" }
 
       it 'should show default link when there is no params[:created_at]' do
         expect(sort_link_to('some_label', 'tasks', "created_at")).to eq default_link

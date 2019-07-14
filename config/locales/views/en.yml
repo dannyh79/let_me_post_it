@@ -62,6 +62,9 @@ en:
       email: 'Email:'
       password: 'Password:'
       password_confirmation: 'Enter the password again: '
+      old_password: 'Current password: '
+      new_password: 'New password: '
+      new_password_confirmation: 'Enter the new password again: '
       submit: 'Submit'
     back_to_root_path: 'Back to Index'
   site_title: 'Let Me Post It: A Light-Weighted Task Manager'
@@ -71,12 +74,26 @@ en:
       logout: 'Log out'
       signup: 'Sign up'
       edit: 'Edit User'
+      backend: 'Backend'
     pagination:
       first: 'First page'
       last: 'Last page'
       previous: 'Previous page'
       next: 'Next page'
       truncate: '...'
+    backend:
+      users_index: 'Users'
+      users: 
+        heading:
+          index: 'User List'
+          edit: 'Edit User'
+        table:
+          create_new_user: 'Create a new user'
+          email: 'Email'
+          role: 'Role'
+          task_count: 'Tasks count'
+          edit_user: 'Edit User'
+        back_to_users_index: 'Back to User List'
   are_you_sure: 'Are you sure?'
   helpers:
     submit:
@@ -99,3 +116,5 @@ en:
     abbr_day_names: [Mon, Tue, Wed, Thu, Fri, Sat, Sun]
     month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
     abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+  unit:
+    each: 'each'
