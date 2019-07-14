@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
   root 'sessions#new'
   
-  resources :users, except: [:index, :new, :show]
-  get 'signup', to: 'users#new', as: 'signup'
+  namespace :admin do
+    root 'backend#index'
+    resources :users
+  end
+
+  resources :user, except: [:index, :show, :destroy]
+  get 'signup', to: 'user#new', as: 'signup'
   
   resources :tasks
 

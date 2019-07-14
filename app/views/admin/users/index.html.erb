@@ -1,0 +1,28 @@
+<h1>使用者清單啦<%#= I18n.t("tasks.heading.index") %></h1>
+<%= link_to '新增使用者啦', new_admin_user_path %>
+
+<%= paginate @users %>
+
+<table id="table_tasks" class="table table-striped">
+  <thead>
+    <tr>
+      <th class="text-center">email 啦</th>
+      <th class="text-center">角色啦</th>
+      <th class="text-center">任務數量啦</th>
+      <th class="text-center"><%= I18n.t("tasks.table.edit") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>      
+      <tr>
+        <td class="text-center"><%= user.email %></td>
+        <td class="text-center"><%#= I18n.t("user.table.role.#{user.role}") %></td>
+        <td class="text-center"><%#= user.tasks.count %><%= link_to '到時候要改成數字啦', admin_user_path(id: user.id) %></td>
+        <td class="text-center">
+          <%= link_to I18n.t("tasks.table.edit"), edit_admin_user_path(id: user.id) %>
+          <%= delete_link_to I18n.t("tasks.table.delete"), admin_user_path(id: user.id) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

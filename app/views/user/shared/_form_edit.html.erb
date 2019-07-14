@@ -6,19 +6,24 @@
   </ul>
 <% end %>
 
-<%= form_for(@user) do |form| %>
+<%= form_for(user, url: url) do |form| %>
   <div>
     <%= form.label :email, I18n.t("users.form.email") %>
-    <%= form.text_field :email %>
+    <%= form.text_field :email, readonly: 'readonly' %>
   </div>
 
   <div>
-    <%= form.label :password, I18n.t("users.form.password") %>
+    <%= form.label :old_password, I18n.t("users.form.old_password") %>
+    <%= form.password_field :old_password %>
+  </div>
+
+  <div>
+    <%= form.label :password, I18n.t("users.form.new_password") %>
     <%= form.password_field :password %>
   </div>
 
   <div>
-    <%= form.label :password_confirmation, I18n.t("users.form.password_confirmation") %>
+    <%= form.label :password_confirmation, I18n.t("users.form.new_password_confirmation") %>
     <%= form.password_field :password_confirmation %>
   </div>
 

@@ -17,6 +17,11 @@ en:
         low: 'low'
         mid: 'mid'
         high: 'high'
+      user:
+        email: 'Email'
+        password_digest: 'Password'
+        password: 'Password'
+        password_confirmation: 'Password confirmation'
     errors:
       models:
         task:
@@ -37,6 +42,7 @@ en:
             email:
               blank: 'CAN NOT BE BLANK!'
               invalid: 'invalid format!'
+              not_unique: 'is already taken!'
             password_digest:
               blank: 'CAN NOT BE BLANK!'
             password:
@@ -44,3 +50,4 @@ en:
             password_confirmation:
               confirmation:
                 blank: 'CAN NOT BE BLANK!'
+                not_match: 'is different from password!'

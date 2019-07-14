@@ -1,0 +1,42 @@
+<h1>使用者內容啦 <%= @user.email %> <%#= I18n.t("tasks.heading.index") %></h1>
+<%= link_to '回去使用者清單啦', admin_users_path %>
+
+<%= render 'tasks/shared/form_search' %>
+
+<%= paginate @tasks %>
+
+<table id="table_tasks" class="table table-striped">
+  <thead>
+    <tr>
+      <th class="text-center"><%= I18n.t("tasks.table.title") %></th>
+      <th class="text-center"><%= sort_link_to I18n.t("tasks.table.created_at"), tasks_path, :created_at %></th>
+      <th class="text-center"><%= I18n.t("tasks.table.start_time") %></th>
+      <th class="text-center"><%= sort_link_to I18n.t("tasks.table.end_time"), tasks_path, :end_time %></th>
+      <th class="text-center"><%= sort_link_to I18n.t("tasks.table.priority"), tasks_path, :priority %></th>
+      <th class="text-center"><%= I18n.t("tasks.table.status") %></th>
+      <th class="text-center"><%= I18n.t("tasks.table.description") %></th>
+      <th class="text-center"><%= I18n.t("tasks.table.edit") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>      
+      <tr>
+        <td>
+          <span>
+            <%= task.title %>
+          </span>
+        </td>
+        <td class="text-center"><%= I18n.l(task.created_at, format: :long) %></td>
+        <td class="text-center"><%= I18n.l(task.start_time, format: :long) %></td>
+        <td class="text-center"><%= I18n.l(task.end_time, format: :long) %></td>
+        <td class="text-center"><%= I18n.t("activerecord.attributes.task/priority.#{task.priority}") %></td>
+        <td class="text-center"><%= I18n.t("activerecord.attributes.task/status.#{task.status}") %></td>
+        <td class="text-center"><%= link_to I18n.t("tasks.table.view"), task_path(task.id) %></td>
+        <td class="text-center">
+          <%= link_to I18n.t("tasks.table.edit"), edit_task_path(id: task.id) %>
+          <%= delete_link_to I18n.t("tasks.table.delete"), task_path(id: task.id) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

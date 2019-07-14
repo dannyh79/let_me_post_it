@@ -1,0 +1,26 @@
+<% if user.errors.any? %>
+  <ul class="error_message">
+    <% user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_for(user, url: url) do |form| %>
+  <div>
+    <%= form.label :email, I18n.t("users.form.email") %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div>
+    <%= form.label :password, I18n.t("users.form.password") %>
+    <%= form.password_field :password %>
+  </div>
+
+  <div>
+    <%= form.label :password_confirmation, I18n.t("users.form.password_confirmation") %>
+    <%= form.password_field :password_confirmation %>
+  </div>
+
+  <%= form.submit I18n.t("users.form.submit"), class: 'btn btn-primary' %>
+<% end %>

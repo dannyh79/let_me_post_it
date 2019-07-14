@@ -42,6 +42,7 @@ zh-TW:
             email:
               blank: '不能為空白！'
               invalid: '輸入格式有誤！'
+              not_unique: '已有人使用！'
             password_digest:
               blank: '不能為空白！'
             password:
@@ -49,4 +50,4 @@ zh-TW:
             password_confirmation:
               confirmation:
                 blank: '不能為空白！'
-            
+                not_match: '與確認密碼不同！'
