@@ -10,6 +10,6 @@ class User < ApplicationRecord
   private
 
   def last_user?
-    throw :abort if User.count < 1
+    throw :abort if User.count <= 1
   end
 end
