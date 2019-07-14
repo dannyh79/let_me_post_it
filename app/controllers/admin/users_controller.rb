@@ -1,6 +1,7 @@
 class Admin::UsersController < ApplicationController
   include SessionsHelper
 
+  before_action :require_login
   before_action :find_user, only: [:show, :edit, :update, :destroy]
 
   def index
