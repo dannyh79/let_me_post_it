@@ -96,10 +96,10 @@ class TasksController < ApplicationController
   end
 
   def find_task
-    if Task.find(params[:id]).user_id == current_user.id
+    if Task.find(params[:id]).user_id == current_user.id || admin?
       @task = current_user.tasks.find(params[:id])
     else
-      redirect_to (request.referer || tasks_path), alert: t('.alert')
+      raise ActionController::RoutingError.new('Not Found')
     end
   end
 
