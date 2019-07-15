@@ -1,7 +1,7 @@
 module SessionsHelper
   def authenticate_user!
     if not admin?
-      return redirect_to (request.referer || root_path), alert: '你不是管理員欸！'
+      render file: 'public/401.html', layout: false, status: 401
     end
   end
 
