@@ -24,9 +24,11 @@ zh-TW:
       end_time: '結束時間：'
       status: '目前狀態：'
       description: '描述：'
+      tag: '標籤（請以 , 分開）：'
       placeholder:
-        title: "例：掃地"
-        description: "例：順便把垃圾拿出去外面丟"
+        title: '例：掃地'
+        description: '例：順便把垃圾拿出去外面丟'
+        tag: '例："每週, 家事, 室內"'
       submit: '新增任務'
     search_field:
       label: '搜尋任務：'

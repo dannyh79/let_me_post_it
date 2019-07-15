@@ -18,6 +18,6 @@ module SharedScopes
     }
     scope :by_title, -> (title) { where('title ILIKE ?', "%#{title}%") }
     scope :by_status, -> (status) { where(status: status).order(title: :asc) }
-    scope :by_title_and_status, -> (title, status) { where('title ILIKE ?', "%#{title}%").where(status: status) }
+    scope :by_title_and_status, -> (title, status) { by_title(title).by_status(status) }
   end
 end
