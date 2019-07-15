@@ -38,6 +38,8 @@ en:
           placeholder: 'Please enter the keyword'
         status: 
           label: 'By status: '
+        tag: 
+          label: 'By tag: '
       submit: 'Search'
     form_select:
       label: 'Sort the tasks by: '

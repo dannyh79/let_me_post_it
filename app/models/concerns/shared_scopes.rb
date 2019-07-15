@@ -16,7 +16,7 @@ module SharedScopes
         raise(ArgumentError, "Invalid sort option: #{sort_option.inspect}")
       end
     }
-    scope :by_title, -> (title) { where('title ILIKE ?', "%#{title}%") }
+    scope :by_title, -> (title) { where('title ILIKE ?', "%#{title}%").order(title: :asc) }
     scope :by_status, -> (status) { where(status: status).order(title: :asc) }
     scope :by_title_and_status, -> (title, status) { by_title(title).by_status(status) }
   end

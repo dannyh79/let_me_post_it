@@ -38,6 +38,8 @@ zh-TW:
           placeholder: '請輸入關鍵字'
         status:
           label: '依狀態：'
+        tag:
+          label: '依標籤：'
       submit: '搜尋'
     form_select:
       label: '排序任務：'
