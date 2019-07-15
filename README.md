@@ -51,9 +51,15 @@ A Rails app for task management
   |task_id|*integer*| 
 
 
-## Getting Started (WIP)
-- 以 `rails db:create` 建立資料庫
-- 以 `rails db` 確認有正確連接資料庫
+## Getting Started
+1. `$ rails db:create` 建立資料庫
+2. `$ rails db` 確認有正確連接資料庫
+3. `$ rails db:migrate` 遷移資料庫描述檔
+4. `$ rails db:seed` 建立第一個管理員使用者（預設帳號密碼為`email@email.com`和`111111`）
+5. 開啟伺服器
+  - `$ rails server -e production` (for production)
+  - `$ rails server` (for development)
+6. 於瀏覽器網址列中輸入 `localhost:3000`
 
 ## Running the Automated Test Suite
 - `$ bundle exec guard`
