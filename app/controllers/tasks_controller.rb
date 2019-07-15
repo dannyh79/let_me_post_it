@@ -8,6 +8,7 @@ class TasksController < ApplicationController
   def index
     @tasks = current_user.tasks.sorted_by("created_at_asc").page(params[:page]).per(8)
     
+    # (to be looking into the implementation of query object so this dirty mess can be simplified)
     case
       # sort
     when params[:created_at] != nil
@@ -18,19 +19,34 @@ class TasksController < ApplicationController
       @tasks = current_user.tasks.sorted_by("priority_#{params[:priority]}").page(params[:page]).per(8)
 
       # search
-    when params[:title] != nil || params[:status] != nil
+    when params[:title] != nil || params[:status] != nil || params[:tag] != nil
       case
-        # search by title
-      when params[:status] == ""
-        @tasks = current_user.tasks.by_title(params[:title]).order(status: :asc).page(params[:page]).per(8)
+        # search by both title and status
+      when params[:title] != "" && params[:status] != "" && params[:tag].empty?
+        @tasks = current_user.tasks.by_title_and_status(params[:title], params[:status]).page(params[:page]).per(8)
+
+        # search by title/status and tag
+      when title_or_status && params[:tag] != ""
+        case
+        when params[:title] != "" && params[:status] != ""
+          @tasks = current_user.tasks.by_tag(params[:tag]).by_title_and_status(params[:title], params[:status]).page(params[:page]).per(8)
+        when params[:title] != ""
+          @tasks = current_user.tasks.by_tag(params[:tag]).by_title(params[:title]).page(params[:page]).per(8)
+        when params[:status] != ""
+          @tasks = current_user.tasks.by_tag(params[:tag]).by_status(params[:status]).page(params[:page]).per(8)
+        end
         
-        # search by status
-      when params[:title] == ""
+        # search by title (when there's no tag param present)
+      when params[:status] == "" && params[:tag].empty?
+        @tasks = current_user.tasks.by_title(params[:title]).page(params[:page]).per(8)
+        
+        # search by status (when there's no tag param present)
+      when params[:title] == "" && params[:tag].empty?
         @tasks = current_user.tasks.by_status(params[:status]).page(params[:page]).per(8)
 
-        # search by both title and status
-      when params[:title] != "" && params[:status] != ""
-        @tasks = current_user.tasks.by_title_and_status(params[:title], params[:status]).page(params[:page]).per(8)
+        # search by tag
+      when params[:tag] != ""
+        @tasks = current_user.tasks.by_tag(params[:tag]).page(params[:page]).per(8)
       end
     end
   end
@@ -76,7 +92,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :start_time, :end_time, :priority, :status, :description, :user_id)
+    params.require(:task).permit(:title, :start_time, :end_time, :priority, :status, :description, :user_id, :tag_list)
   end
 
   def find_task
@@ -89,5 +105,9 @@ class TasksController < ApplicationController
 
   def include_user
     @tasks = @tasks.includes(:user)
+  end
+
+  def title_or_status
+    true if params[:title] != "" || params[:status] != ""
   end
 end

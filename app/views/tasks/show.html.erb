@@ -11,6 +11,11 @@
     </span>
   </h4>
   <div class="card-body">
+    <h5>
+      <% @task.tags.each do |tag| %>
+        <span class="badge badge-info"><%= tag.name %></span>
+      <% end %>
+    </h5>
     <h5 class="card-title"><%= @task.title %></h5>
     <p class="card-text"><%= @task.description %></p>
     <p class="card-text"><%= I18n.t("tasks.table.start_time") %> <span class="badge badge-secondary"><%= I18n.l(@task.start_time, format: :long) %></span></p>

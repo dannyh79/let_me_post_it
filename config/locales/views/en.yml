@@ -24,9 +24,11 @@ en:
       end_time: 'End Time:'
       status: 'Status:'
       description: 'Description:'
+      tag: 'Tag (separated by ","):'
       placeholder:
-        title: 'e.g. "Sweep the floor"'
-        description: 'e.g. "Also take garbage out to the bin"'
+        title: 'e.g.,  "Sweep the floor"'
+        description: 'e.g.,  "Also take garbage out to the bin"'
+        tag: 'e.g., "Weekly, House Chore, Indoor"'
       submit: 'Create Task'
     search_field:
       label: 'Search the tasks:'
@@ -36,6 +38,8 @@ en:
           placeholder: 'Please enter the keyword'
         status: 
           label: 'By status: '
+        tag: 
+          label: 'By tag: '
       submit: 'Search'
     form_select:
       label: 'Sort the tasks by: '
