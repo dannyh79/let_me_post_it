@@ -45,8 +45,8 @@ module TasksHelper
     end
   end
 
-  def tag_select_with_name_options
-    options = Tag.all.pluck(:name, :name)
+  def tag_select_with_name_options(tags)
+    options = tags.pluck(:name, :name)
     return (
       select_tag :tag, 
       options_for_select(options),

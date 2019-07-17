@@ -6,6 +6,7 @@ class TasksController < ApplicationController
   after_action :include_user, only: [:index]
 
   def index
+    @tags = Tag.all
     @tasks = current_user.tasks.sorted_by("created_at_asc").page(params[:page]).per(8)
     
     # (to be looking into the implementation of query object so this dirty mess can be simplified)
@@ -29,11 +30,11 @@ class TasksController < ApplicationController
       when title_or_status && params[:tag] != ""
         case
         when params[:title] != "" && params[:status] != ""
-          @tasks = current_user.tasks.by_tag(params[:tag]).by_title_and_status(params[:title], params[:status]).page(params[:page]).per(8)
+          @tasks = current_user.tasks.by_tag(params[:tag], current_user).by_title_and_status(params[:title], params[:status]).page(params[:page]).per(8)
         when params[:title] != ""
-          @tasks = current_user.tasks.by_tag(params[:tag]).by_title(params[:title]).page(params[:page]).per(8)
+          @tasks = current_user.tasks.by_tag(params[:tag], current_user).by_title(params[:title]).page(params[:page]).per(8)
         when params[:status] != ""
-          @tasks = current_user.tasks.by_tag(params[:tag]).by_status(params[:status]).page(params[:page]).per(8)
+          @tasks = current_user.tasks.by_tag(params[:tag], current_user).by_status(params[:status]).page(params[:page]).per(8)
         end
         
         # search by title (when there's no tag param present)
@@ -46,7 +47,7 @@ class TasksController < ApplicationController
 
         # search by tag
       when params[:tag] != ""
-        @tasks = current_user.tasks.by_tag(params[:tag]).page(params[:page]).per(8)
+        @tasks = current_user.tasks.by_tag(params[:tag], current_user).page(params[:page]).per(8)
       end
     end
   end

@@ -15,7 +15,7 @@
     %>
 
     <%= label_tag :tag, I18n.t("tasks.search_field.attributes.tag.label"), class: 'badge badge-light' %>
-    <%= tag_select_with_name_options %>
+    <%= tag_select_with_name_options(tags) %>
 
     <%= submit_tag I18n.t("tasks.search_field.submit") %>
   <% end %>
